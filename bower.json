@@ -1,0 +1,13 @@
+{
+  "name": "Education management system",
+  "version": "1",
+  "authors": [
+    "Keshav Katwe <keshav.katwe@gmail.com>"
+  ],
+  "description": "It is a management software for handling operations of institute.",
+  "main": "index.php",
+  "homepage": "ems.dynasofts.com",
+  "dependencies": {
+    "bootstrap": "~3.3.2"
+  }
+}
