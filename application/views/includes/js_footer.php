@@ -26,3 +26,4 @@ $info = $this->session->flashdata("show_info");
 <script src="<?php echo base_url('dist/js/custom_js.js') ?>"></script>
 
 <script src="<?php echo base_url('bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js') ?>"></script>
+<script src="<?php echo base_url('bower_components/iCheck/icheck.min.js') ?>"></script>

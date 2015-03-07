@@ -27,80 +27,105 @@
 
                     <!-- Default box -->
                     <div class="box">
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-md-2 text-center">
-                                    <div class="form-group">
-                                        <label>Profile image</label><br/>
-                                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                                            <div class="fileinput-new thumbnail" style="max-width: 100px;">
-                                                <img alt="" src="<?php echo base_url('file_uploads/profile_images/default.png') ?>">
-                                            </div>
-                                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 100px;"></div>
-                                            <div>
-                                                <span class="btn btn-default btn-file btn-xs"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
-                                                <a href="#" class="btn btn-default fileinput-exists btn-xs" data-dismiss="fileinput">Remove</a>
+                        <form method="post">
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-2 text-center">
+                                        <div class="form-group">
+                                            <label>Profile image</label><br/>
+                                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                <div class="fileinput-new thumbnail" style="max-width: 100px;">
+                                                    <img alt="" src="<?php echo base_url('file_uploads/profile_images/default.png') ?>">
+                                                </div>
+                                                <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 100px;"></div>
+                                                <div>
+                                                    <span class="btn btn-default btn-file btn-xs"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
+                                                    <a href="#" class="btn btn-default fileinput-exists btn-xs" data-dismiss="fileinput">Remove</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>First name</label>
+                                            <input type="text" class="form-control" name="first_name" id="first_name"/>
+                                            <?php echo form_error('first_name'); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email id</label>
+                                            <input type="text" class="form-control" name="email_id" id="email_id"/>
+                                            <?php echo form_error('email_id'); ?>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input type="password" class="form-control" name="password" id="password"/>
+                                            <?php echo form_error('password'); ?>
+                                        </div>
+
+                                        
+                                        <div class="form-group">
+                                            <label>Department</label>
+                                            <select class="form-control" name="department" id="department">
+                                                <option value="">Choose department</option>
+                                                <?php echo get_departments(set_value('department')); ?>
+                                            </select>
+                                            <?php echo form_error('department'); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Semesters</label>
+
+                                            <?php for ($i = 1; $i <= 6; $i++) { ?>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input name="sems[]" class="flat-red" type="checkbox" value="<?php echo $i ?>">
+                                                        <?php echo singledigit($i); ?>
+                                                    </label>
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>Last name</label>
+                                            <input type="text" class="form-control" name="last_name" id="last_name"/>
+                                            <?php echo form_error('last_name'); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Phone</label>
+                                            <input type="text" class="form-control" name="phone" id="phone"/>
+                                            <?php echo form_error('phone'); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Confirm password</label>
+                                            <input type="password" class="form-control" name="confirm_password" id="confirm_password"/>
+                                            <?php echo form_error('confirm_password'); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Employee id</label>
+                                            <input type="text" class="form-control" name="employee_id" id="employee_id"/>
+                                            <?php echo form_error('employee_id'); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Designation</label>
+                                            <input type="text" class="form-control" name="designation" id="designation"/>
+                                            <?php echo form_error('designation'); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <textarea type="text" class="form-control" name="address" id="address"></textarea>
+                                            <?php echo form_error('address'); ?>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>First name</label>
-                                        <input type="text" class="form-control" name="first_name" id="first_name"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Email id</label>
-                                        <input type="text" class="form-control" name="email_id" id="email_id"/>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <label>Password</label>
-                                        <input type="password" class="form-control" name="password" id="password"/>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Employee id</label>
-                                        <input type="text" class="form-control" name="employee_id" id="employee_id"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Department</label>
-                                        <select class="form-control" name="department" id="department">
-                                            <?php echo get_departments(); ?>
-                                        </select>
-                                    </div>
-
+                            </div><!-- /.box-body -->
+                            <div class="box-footer">
+                                <div class="col-md-offset-2">
+                                    <button class="btn btn-danger">Save <i class="fa fa-check-circle"></i></button>
                                 </div>
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Last name</label>
-                                        <input type="text" class="form-control" name="last_name" id="last_name"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Phone</label>
-                                        <input type="text" class="form-control" name="phone" id="phone"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Confirm password</label>
-                                        <input type="password" class="form-control" name="password" id="password"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Designation</label>
-                                        <input type="text" class="form-control" name="designation" id="designation"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Address</label>
-                                        <input type="text" class="form-control" name="address" id="address"/>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div><!-- /.box-body -->
-                        <div class="box-footer">
-                            <div class="col-md-offset-2">
-                                <button class="btn btn-danger">Save <i class="fa fa-check-circle"></i></button>
-                            </div>
-                        </div><!-- /.box-footer-->
+                            </div><!-- /.box-footer-->
+                        </form>
                     </div><!-- /.box -->
 
                 </section><!-- /.content -->
@@ -110,6 +135,15 @@
         </div><!-- ./wrapper -->
 
         <?php $this->load->view('includes/js_footer') ?>
+
+
+        <script>
+            //Flat red color scheme for iCheck
+            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                checkboxClass: 'icheckbox_flat-red',
+                radioClass: 'iradio_flat-red'
+            });
+        </script>
     </body>
 
 
