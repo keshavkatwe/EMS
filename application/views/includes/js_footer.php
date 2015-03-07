@@ -24,3 +24,5 @@ $info = $this->session->flashdata("show_info");
 <script src="<?php echo base_url('dist/js/app.min.js') ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('bower_components/toastr/toastr.min.js') ?>"></script>
 <script src="<?php echo base_url('dist/js/custom_js.js') ?>"></script>
+
+<script src="<?php echo base_url('bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js') ?>"></script>

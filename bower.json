@@ -11,6 +11,7 @@
     "bootstrap": "~3.3.2",
     "toastr": "~2.1.0",
     "fontawesome": "~4.3.0",
-    "ionicons": "~2.0.1"
+    "ionicons": "~2.0.1",
+    "jasny-bootstrap": "~3.1.3"
   }
 }
