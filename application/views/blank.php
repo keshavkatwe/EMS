@@ -50,4 +50,5 @@
         <?php $this->load->view('includes/js_footer') ?>
     </body>
     
+
 </html>
