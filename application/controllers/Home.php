@@ -20,7 +20,13 @@ class Home extends Custom_controller{
     
     
     public function index() {
-        $this->load->view('blank');
+        
+        $page_data = array(
+            'current_tab' => 'home_tab',
+            'current_page' => 'home'
+        );
+        
+        $this->load->view('home', $page_data);
     }
     
 }

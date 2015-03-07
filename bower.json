@@ -9,6 +9,8 @@
   "homepage": "ems.dynasofts.com",
   "dependencies": {
     "bootstrap": "~3.3.2",
-    "toastr": "~2.1.0"
+    "toastr": "~2.1.0",
+    "fontawesome": "~4.3.0",
+    "ionicons": "~2.0.1"
   }
 }
