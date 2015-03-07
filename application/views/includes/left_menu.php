@@ -40,6 +40,18 @@
                     <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Manage students</a></li>
                 </ul>
             </li>
+            <li class="treeview <?php echo (isset($current_tab) && $current_tab == 'subject') ? 'active' : '' ?>">
+                <a href="#">
+                    <i class="fa fa-book"></i>
+                    <span>Subject</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="<?php echo (isset($current_page) && $current_page == 'add_subject') ? 'active' : '' ?>"><a href="<?php echo base_url("subject/add_subject"); ?>"><i class="fa fa-circle-o"></i> Add subject</a></li>
+                    <li class="<?php echo (isset($current_page) && $current_page == 'manage_subject') ? 'active' : '' ?>"><a href="<?php echo base_url("subject/manage_subject"); ?>"><i class="fa fa-circle-o"></i> Manage subject</a></li>
+                    <li class="<?php echo (isset($current_page) && $current_page == 'assign_subject') ? 'active' : '' ?>"><a href="<?php echo base_url("subject/assign_subject"); ?>"><i class="fa fa-circle-o"></i> Assign subject</a></li>
+                </ul>
+            </li>
 
         </ul>
     </section>
