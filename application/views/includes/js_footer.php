@@ -8,3 +8,6 @@
 <script src="<?php echo base_url('bower_components/fastclick/fastclick.min.js') ?>"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('dist/js/app.min.js') ?>" type="text/javascript"></script>
+
+
+<script src="<?php echo base_url('bower_components/toastr/toastr.min.js') ?>"></script>

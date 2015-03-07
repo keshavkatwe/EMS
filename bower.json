@@ -8,6 +8,7 @@
   "main": "index.php",
   "homepage": "ems.dynasofts.com",
   "dependencies": {
-    "bootstrap": "~3.3.2"
+    "bootstrap": "~3.3.2",
+    "toastr": "~2.1.0"
   }
 }

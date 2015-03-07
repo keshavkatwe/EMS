@@ -2,11 +2,12 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>AdminLTE 2 | Dashboard</title>
+        <title><?php echo $this->config->item('site_name') ?> | Dashboard</title>
 
         <?php $this->load->view('includes/css_header') ?>
     </head>
-    <body class="skin-blue">
+    
+    <body class="<?php echo THEME_COLOR;?>">
         <!-- Site wrapper -->
         <div class="wrapper">
             <?php $this->load->view('includes/top_menu') ?>
@@ -55,4 +56,25 @@
 
         <?php $this->load->view('includes/js_footer') ?>
     </body>
+    
+    <script>
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            toastr.success('Are you the six fingered man?', 'Inigo Montoy');
+        </script>
 </html>
