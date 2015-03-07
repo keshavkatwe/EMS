@@ -11,10 +11,23 @@
  *
  * @author Keshav K
  */
-class Account extends Custom_controller {
+class Account extends CI_Controller {
 
+    
+    public function __construct() {
+        parent::__construct();
+        $this->load->model('account_model');
+    }
+    
     public function index() {
-
+        
+        if($this->session->user_id)
+        {
+            redirect(base_url());
+        }
+        
+        
+        $msg = "";
         $config = array(
             array(
                 'field' => 'email_id',
@@ -33,8 +46,35 @@ class Account extends Custom_controller {
             
         } else {
             
+            $login_data = array(
+                'email_id' => $this->input->post('email_id'),
+                'password' => $this->input->post('password')
+            );
+            
+            $result = $this->account_model->login_m($login_data);
+            
+            if(count($result))
+            {
+                $this->session->set_userdata($result);
+                redirect(base_url());
+            }
+            else
+            {
+                $msg = '<div class="alert alert-danger" role="alert">Email/Password doesn\'t exist.</div>';
+            }
+            
         }
-        $this->load->view('login');
+        
+        $page_data = array(
+            'msg' => $msg
+        );
+        
+        $this->load->view('login', $page_data);
     }
 
+    
+    public function logout() {
+        $this->session->sess_destroy();
+        redirect(base_url('account'));
+    }
 }

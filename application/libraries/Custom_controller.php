@@ -12,5 +12,11 @@
  * @author Keshav K
  */
 class Custom_controller extends CI_Controller{
-    //put your code here
+    public function __construct() {
+        parent::__construct();
+        if(!$this->session->user_id)
+        {
+            redirect(base_url('account'));
+        }
+    }
 }

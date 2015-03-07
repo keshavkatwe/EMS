@@ -17,14 +17,15 @@
             </div><!-- /.login-logo -->
             <div class="login-box-body">
                 <p class="login-box-msg">Login</p>
+                <?php echo $msg; ?>
                 <form method="post">
                     <div class="form-group has-feedback">
-                        <input id="email_id" name="email_id" type="text" class="form-control" placeholder="Email"/>
+                        <input id="email_id" name="email_id" type="text" class="form-control" placeholder="Email" value="<?php echo set_value('email_id') ?>"/>
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                         <?php echo form_error('email_id'); ?>
                     </div>
                     <div class="form-group has-feedback">
-                        <input id="password" name="password" type="password" class="form-control" placeholder="Password"/>
+                        <input id="password" name="password" type="password" class="form-control" placeholder="Password" value="<?php echo set_value('password') ?>"/>
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                         <?php echo form_error('password'); ?>
                     </div>
