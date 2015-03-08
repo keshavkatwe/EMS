@@ -19,9 +19,9 @@ class Faculties extends Custom_controller {
     }
 
     public function index() {
-        
+
         $faculties_array = $this->faculty_model->fetch_faculties();
-        
+
         $page_data = array(
             'current_tab' => 'faculties_tab',
             'current_page' => 'faculties',
@@ -30,7 +30,6 @@ class Faculties extends Custom_controller {
 
         $this->load->view('faculties', $page_data);
     }
-    
 
     public function add() {
 
@@ -115,15 +114,44 @@ class Faculties extends Custom_controller {
             $semesters = $this->input->post('sems');
             $result = $this->faculty_model->add_faculty_m($user_information, $faculty_information, $semesters);
 
-            echo $result;
+            if ($result) {
+                $this->session->set_flashdata("show_success", "Faculty added successfully");
+                redirect('faculties');
+            }
         } else {
+            
+            $faculties_array = array(
+                'first_name' => '',
+                'email_id' => '',
+                'password' => '',
+                'last_name' => '',
+                'gender' => '',
+                'phone' => '',
+                'employee_id' => '',
+                'designation' => '',
+                'address' => '',
+            );
+            
             $page_data = array(
                 'current_tab' => 'faculties_tab',
-                'current_page' => 'add_faculty'
+                'current_page' => 'add_faculty',
+                'faculties_array' => $faculties_array
             );
 
-            $this->load->view('add_faculty_view', $page_data);
+            $this->load->view('add_faculty', $page_data);
         }
     }
 
+    public function edit($user_id = NULL) {
+        
+        $faculties_array = $this->faculty_model->fetch_faculties($user_id);
+        
+        $page_data = array(
+            'current_tab' => 'faculties_tab',
+            'current_page' => 'edit_faculty',
+            'faculties_array' => $faculties_array
+        );
+
+        $this->load->view('add_faculty', $page_data);
+    }
 }

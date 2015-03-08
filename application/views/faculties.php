@@ -50,7 +50,7 @@
                                         <td><?php echo $faculty['email_id'] ?></td>
                                         <td><?php echo $faculty['employee_id'] ?></td>
                                         <td><?php echo $faculty['department_name'] ?></td>
-                                        <td><a class="btn btn-primary btn-sm">Edit</a></td>
+                                        <td><a class="btn btn-primary btn-sm" href="<?php echo base_url('faculties/edit/'.$faculty['user_id']) ?>">Edit</a></td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>

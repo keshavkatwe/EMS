@@ -19,14 +19,14 @@
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
 
-            <li class="<?php echo (isset($current_page) && $current_page == 'home') ? 'active' : '' ?>"><a><i class="fa fa-home"></i> Home</a></li>
-            <li class="treeview">
+            <li class="<?php echo (isset($current_page) && $current_page == 'home') ? 'active' : '' ?>"><a href="<?php echo base_url() ?>"><i class="fa fa-home"></i> Home</a></li>
+            <li class="treeview <?php echo (isset($current_tab) && $current_tab == 'faculties_tab') ? 'active' : '' ?>">
                 <a href="#">
                     <i class="fa fa-users"></i> <span>Faculties</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Add faculty</a></li>
-                    <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Manage faculties</a></li>
+                    <li class="<?php echo (isset($current_page) && $current_page == 'add_faculty') ? 'active' : '' ?>"><a href="<?php echo base_url('faculties/add'); ?>"><i class="fa fa-circle-o"></i> Add faculty</a></li>
+                    <li class="<?php echo (isset($current_page) && $current_page == 'faculties') ? 'active' : '' ?>"><a href="<?php echo base_url('faculties'); ?>"><i class="fa fa-circle-o"></i> Manage faculties</a></li>
                 </ul>
             </li>
             <li class="treeview">

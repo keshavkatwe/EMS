@@ -47,13 +47,21 @@ class Faculty_model extends CI_Model {
         }
     }
 
-    
-    public function fetch_faculties() {
+    public function fetch_faculties($user_id = NULL) {
+
+        if ($user_id != NULL) {
+            $this->db->where('u.user_id', $user_id);
+        }
+
         $this->db->join('tbl_faculty f', 'u.user_id = f.user_id');
         $this->db->join('tbl_departments d', 'f.department = d.department_id');
         $query = $this->db->get('tbl_users u');
-        return $query->result_array();
+
+        if ($user_id == NULL) {
+            return $query->result_array();
+        } else {
+            return $query->row_array();
+        }
     }
-    
-    
+
 }
