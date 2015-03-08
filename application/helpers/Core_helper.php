@@ -51,3 +51,15 @@ function get_semester($sem_id = NULL) {
     
     return $semester_string;
 }
+
+function singledigit($number){
+    switch($number){
+        case 1:$word = "First";break;
+        case 2:$word = "Second";break;
+        case 3:$word = "Third";break;
+        case 4:$word = "Fourth";break;
+        case 5:$word = "Fivth";break;
+        case 6:$word = "Sixed";break;
+    }
+    return $word;
+}

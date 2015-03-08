@@ -21,3 +21,7 @@
 <link rel="stylesheet" href="<?php echo base_url('bower_components/toastr/toastr.css') ?>"/>
 
 <link rel="stylesheet" href="<?php echo base_url('bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css') ?>"/>
+<link rel="stylesheet" href="<?php echo base_url('bower_components/iCheck/all.css') ?>"/>
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('bower_components/datatables/media/css/jquery.dataTables.min.css') ?>">
