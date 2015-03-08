@@ -36,7 +36,7 @@
                     <li class="<?php echo (isset($current_page) && $current_page == 'faculties') ? 'active' : '' ?>"><a href="<?php echo base_url('faculties'); ?>"><i class="fa fa-circle-o"></i> Manage faculties</a></li>
                 </ul>
             </li>
-            <li class="treeview">
+<!--            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-users"></i>
                     <span>Student</span>
@@ -46,7 +46,7 @@
                     <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Add student</a></li>
                     <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Manage students</a></li>
                 </ul>
-            </li>
+            </li>-->
             <li class="treeview <?php echo (isset($current_tab) && $current_tab == 'subject') ? 'active' : '' ?>">
                 <a href="#">
                     <i class="fa fa-book"></i>
