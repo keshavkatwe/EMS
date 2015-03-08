@@ -13,15 +13,24 @@
  */
 class Faculties extends Custom_controller {
 
-    
     public function __construct() {
         parent::__construct();
         $this->load->model('faculty_model');
     }
-    
+
     public function index() {
         
+        $faculties_array = $this->faculty_model->fetch_faculties();
+        
+        $page_data = array(
+            'current_tab' => 'faculties_tab',
+            'current_page' => 'faculties',
+            'faculties_array' => $faculties_array
+        );
+
+        $this->load->view('faculties', $page_data);
     }
+    
 
     public function add() {
 
@@ -42,8 +51,8 @@ class Faculties extends Custom_controller {
                 'rules' => 'required|trim',
             ),
             array(
-                'field' => 'phone',
-                'label' => 'Phone number',
+                'field' => 'gender',
+                'label' => 'Gender',
                 'rules' => 'required|trim',
             ),
             array(
@@ -54,6 +63,11 @@ class Faculties extends Custom_controller {
             array(
                 'field' => 'confirm_password',
                 'label' => 'Confirm password',
+                'rules' => 'required|trim',
+            ),
+            array(
+                'field' => 'phone',
+                'label' => 'Phone number',
                 'rules' => 'required|trim',
             ),
             array(
@@ -80,15 +94,16 @@ class Faculties extends Custom_controller {
 
         $this->form_validation->set_rules($config);
         if ($this->form_validation->run() == TRUE) {
-            
+
             $user_information = array(
                 'first_name' => $this->input->post('first_name'),
                 'last_name' => $this->input->post('last_name'),
                 'email_id' => $this->input->post('email_id'),
                 'password' => $this->input->post('password'),
+                'gender' => $this->input->post('gender'),
                 'role_id' => 2,
             );
-            
+
             $faculty_information = array(
                 'employee_id' => $this->input->post('employee_id'),
                 'designation' => $this->input->post('designation'),
@@ -96,11 +111,11 @@ class Faculties extends Custom_controller {
                 'phone' => $this->input->post('phone'),
                 'department' => $this->input->post('department'),
             );
-            
-            $result = $this->faculty_model->add_faculty_m($user_information, $faculty_information);
-            
+
+            $semesters = $this->input->post('sems');
+            $result = $this->faculty_model->add_faculty_m($user_information, $faculty_information, $semesters);
+
             echo $result;
-            
         } else {
             $page_data = array(
                 'current_tab' => 'faculties_tab',

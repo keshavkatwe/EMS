@@ -63,7 +63,7 @@
                                             <?php echo form_error('password'); ?>
                                         </div>
 
-                                        
+
                                         <div class="form-group">
                                             <label>Department</label>
                                             <select class="form-control" name="department" id="department">
@@ -74,15 +74,21 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Semesters</label>
+                                            <div class="row">
+                                                <?php for ($i = 1; $i <= 6; $i++) { ?>
+                                                    <div class="col-md-6">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input name="sems[]" class="flat-red" type="checkbox" value="<?php echo $i ?>">
+                                                                <?php echo singledigit($i); ?>
+                                                            </label>
+                                                        </div>
+                                                    </div>
 
-                                            <?php for ($i = 1; $i <= 6; $i++) { ?>
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input name="sems[]" class="flat-red" type="checkbox" value="<?php echo $i ?>">
-                                                        <?php echo singledigit($i); ?>
-                                                    </label>
-                                                </div>
-                                            <?php } ?>
+                                                <?php } ?>
+                                            </div>
+
+
                                         </div>
                                     </div>
                                     <div class="col-md-5">
@@ -92,14 +98,27 @@
                                             <?php echo form_error('last_name'); ?>
                                         </div>
                                         <div class="form-group">
-                                            <label>Phone</label>
-                                            <input type="text" class="form-control" name="phone" id="phone"/>
-                                            <?php echo form_error('phone'); ?>
+                                            
+                                            <label>Gender</label>
+                                            <div>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="gender" value="male" class="flat-red" <?php echo set_radio('gender', 'male') ?>> Male
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="gender" value="female" class="flat-red" <?php echo set_radio('gender', 'female') ?>> Female
+                                                </label>
+                                            </div>
+                                            <?php echo form_error('gender'); ?>
                                         </div>
                                         <div class="form-group">
                                             <label>Confirm password</label>
                                             <input type="password" class="form-control" name="confirm_password" id="confirm_password"/>
                                             <?php echo form_error('confirm_password'); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Phone</label>
+                                            <input type="text" class="form-control" name="phone" id="phone"/>
+                                            <?php echo form_error('phone'); ?>
                                         </div>
                                         <div class="form-group">
                                             <label>Employee id</label>
