@@ -25,3 +25,10 @@
 
 <!-- DataTables CSS -->
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('bower_components/datatables/media/css/jquery.dataTables.min.css') ?>">
+
+<style>
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        margin: 0px;
+        padding: 0px;
+    }
+</style>

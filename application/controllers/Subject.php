@@ -83,7 +83,7 @@ class Subject extends Custom_controller {
             array(
                 'field' => 'subject_name',
                 'label' => 'Subject Name',
-                'rules' => 'trim|required|callback_update_subject_check['.$subject_id.']',
+                'rules' => 'trim|required|callback_update_subject_check[' . $subject_id . ']',
             ),
             array(
                 'field' => 'semester',
@@ -136,9 +136,9 @@ class Subject extends Custom_controller {
         }
     }
 
-    public function update_subject_check($subject,$subject_id) {
+    public function update_subject_check($subject, $subject_id) {
         $department = $this->input->post('department');
-        $query = $this->db->get_where('tbl_subject', array('subject_name' => $subject, 'department' => $department, 'subject_id!= '=>$subject_id));
+        $query = $this->db->get_where('tbl_subject', array('subject_name' => $subject, 'department' => $department, 'subject_id!= ' => $subject_id));
         if ($query->num_rows() > 0) {
             $this->form_validation->set_message('update_subject_check', '<i class="text-danger">This {field} already exist</i>');
             return FALSE;
@@ -154,6 +154,25 @@ class Subject extends Custom_controller {
             'subject_list' => $this->Subject_model->subject_list()
         );
         $this->load->view("manage_subject", $data);
+    }
+
+    function delete_subject($subject_id) {
+        $result = $this->Subject_model->delete_subject_m($subject_id);
+        if ($result) {
+            $this->session->set_flashdata("show_success", "Subject deleted successfully");
+        } else {
+            $this->session->set_flashdata("show_error", "Something went wrong, Plese try after sometime");
+        }
+        redirect(base_url('subject/manage_subject'));
+    }
+    
+    
+    function assign_subject() {
+        $data = array(
+            'current_tab' => 'subject',
+            'current_page' => 'assign_subject'
+        );
+        $this->load->view("assign_subject", $data);
     }
 
 }

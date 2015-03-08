@@ -30,8 +30,21 @@ class Subject_model extends CI_Model {
     }
     
     function subject_list() {
-        $query = $this->db->get('tbl_subject');
+        $this->db->select("s.*, d.department_name");
+        $this->db->from('tbl_subject s, tbl_departments d');
+        $this->db->where("s.department = d.department_id");
+        $query = $this->db->get();
         return $query->result_array();
+    }
+    
+    function delete_subject_m($subject_id) {
+        $this->db->where('subject_id', $subject_id);
+        if($this->db->delete('tbl_subject')){
+            return TRUE;
+        } 
+        else{
+            return FALSE;
+        }
     }
 
 }
