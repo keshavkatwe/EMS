@@ -46,6 +46,61 @@ class Faculty_model extends CI_Model {
             return TRUE;
         }
     }
+    
+    
+    public function update_faculty_m($user_id, $user_information, $faculty_information, $semesters) {
+
+        $this->db->trans_start();
+
+        $this->db->where('user_id', $user_id);
+        $this->db->update('tbl_users', $user_information);
+
+
+        $this->db->where('user_id', $user_id);
+        $this->db->update('tbl_faculty', $faculty_information);
+
+        $this->db->delete('tbl_faculty_sem_mapping', array('user_id' => $user_id));
+        if (count($semesters)) {
+            $semester_array = array();
+            foreach ($semesters as $sem) {
+                $semester_array[] = array(
+                    'user_id' => $user_id,
+                    'semester' => $sem
+                );
+            }
+
+            $this->db->insert_batch('tbl_faculty_sem_mapping', $semester_array);
+        }
+
+
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === FALSE) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+    
+    public function delete_faculty($user_id) {
+        
+        $this->db->trans_start();
+        
+        $this->db->delete('tbl_faculty_sem_mapping', array('user_id' => $user_id));
+        $this->db->delete('tbl_faculty', array('user_id' => $user_id));
+        $this->db->delete('tbl_users', array('user_id' => $user_id));
+        
+        $this->db->trans_complete();
+        
+        if ($this->db->trans_status() === FALSE) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+        
+    }
+    
+    
 
     public function fetch_faculties($user_id = NULL) {
 
@@ -64,4 +119,12 @@ class Faculty_model extends CI_Model {
         }
     }
 
+    
+    
+    public function sems_m($user_id) {
+        
+        $this->db->where('user_id', $user_id);
+        $query = $this->db->get('tbl_faculty_sem_mapping');
+        return $query->result_array();
+    }
 }

@@ -33,11 +33,11 @@
                             <table id="example" class="display" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>First name</th>
-                                        <th>Last name</th>
+                                        <th>Name</th>
                                         <th>Email</th>
                                         <th>Employee id</th>
                                         <th>Department</th>
+                                        <th>Sem</th>
                                         <th>Action</th>
                                         
                                     </tr>
@@ -45,12 +45,15 @@
                                 <tbody>
                                     <?php foreach ($faculties_array as $faculty) { ?>
                                     <tr>
-                                        <td><?php echo $faculty['first_name'] ?></td>
-                                        <td><?php echo $faculty['last_name'] ?></td>
+                                        <td><?php echo $faculty['first_name'].' '.$faculty['last_name'] ?></td>
                                         <td><?php echo $faculty['email_id'] ?></td>
                                         <td><?php echo $faculty['employee_id'] ?></td>
                                         <td><?php echo $faculty['department_name'] ?></td>
-                                        <td><a class="btn btn-primary btn-sm" href="<?php echo base_url('faculties/edit/'.$faculty['user_id']) ?>">Edit</a></td>
+                                        <td><?php echo $faculty['sem'] ?></td>
+                                        <td>
+                                            <a class="btn btn-primary btn-sm" href="<?php echo base_url('faculties/edit/'.$faculty['user_id']) ?>"><i class="fa fa-pencil"></i> Edit</a>
+                                            <a class="btn btn-danger btn-sm" href="<?php echo base_url('faculties/delete/'.$faculty['user_id']) ?>"><i class="fa fa-trash-o"></i> Delete</a>
+                                        </td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>
@@ -73,6 +76,9 @@
             $(document).ready(function () {
                 $('#example').dataTable();
             });
+            
+            
+            
         </script>
     </body>
 

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title><?php echo $this->config->item('site_name') ?> | Add faculty</title>
+        <title><?php echo $this->config->item('site_name') ?> | <?php echo ucfirst($operation) ?> faculty</title>
 
         <?php $this->load->view('includes/css_header') ?>
     </head>
@@ -18,7 +18,7 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Add faculty
+                        <?php echo ucfirst($operation) ?> faculty
                     </h1>
                 </section>
 
@@ -27,7 +27,7 @@
 
                     <!-- Default box -->
                     <div class="box">
-                        <form method="post">
+                        <form method="post" enctype="multipart/form-data">
                             <div class="box-body">
                                 <div class="row">
                                     <div class="col-md-2 text-center">
@@ -35,11 +35,26 @@
                                             <label>Profile image</label><br/>
                                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                                 <div class="fileinput-new thumbnail" style="max-width: 100px;">
-                                                    <img alt="" src="<?php echo base_url('file_uploads/profile_images/default.png') ?>">
+                                                    
+                                                    <?php 
+                                                    if($faculties_array['profile_image'] == "")
+                                                    {
+                                                        $profile_image = base_url('file_uploads/profile_images/default.png');
+                                                    }
+                                                    else
+                                                    {
+                                                        $profile_image = base_url('file_uploads/profile_images/'.$faculties_array['profile_image']);
+                                                    }
+                                                    ?>
+                                                    
+                                                    <img alt="" src="<?php echo $profile_image ?>">
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 100px;"></div>
                                                 <div>
-                                                    <span class="btn btn-default btn-file btn-xs"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
+                                                    <span class="btn btn-default btn-file btn-xs">
+                                                        <span class="fileinput-new">Select image</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input type="file" name="profile_image" id="profile_image"></span>
                                                     <a href="#" class="btn btn-default fileinput-exists btn-xs" data-dismiss="fileinput">Remove</a>
                                                 </div>
                                             </div>
@@ -75,11 +90,19 @@
                                         <div class="form-group">
                                             <label>Semesters</label>
                                             <div class="row">
-                                                <?php for ($i = 1; $i <= 6; $i++) { ?>
+                                                <?php for ($i = 1; $i <= 6; $i++) { 
+                                                    $is_checked = FALSE;
+                                                    foreach ($sems as $sem) {
+                                                        if($sem['semester'] == $i)
+                                                        {
+                                                            $is_checked = TRUE;
+                                                        }
+                                                    }
+                                                    ?>
                                                     <div class="col-md-6">
                                                         <div class="checkbox">
                                                             <label>
-                                                                <input name="sems[]" class="flat-red" type="checkbox" value="<?php echo $i ?>">
+                                                                <input name="sems[]" class="flat-red" type="checkbox" value="<?php echo $i ?>" <?php echo set_checkbox('sems[]', $i, $is_checked) ?>>
                                                                 <?php echo singledigit($i); ?>
                                                             </label>
                                                         </div>
@@ -110,11 +133,15 @@
                                             </div>
                                             <?php echo form_error('gender'); ?>
                                         </div>
+                                        
+                                        
+                                        <?php if($operation == 'add') { ?>
                                         <div class="form-group">
                                             <label>Confirm password</label>
-                                            <input type="password" class="form-control" name="confirm_password" id="confirm_password"/>
+                                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" value="<?php echo set_value('confirm_password') ?>"/>
                                             <?php echo form_error('confirm_password'); ?>
                                         </div>
+                                        <?php } ?>
                                         <div class="form-group">
                                             <label>Phone</label>
                                             <input type="text" class="form-control" name="phone" id="phone" value="<?php echo set_value('phone',$faculties_array['phone']) ?>"/>
@@ -141,7 +168,7 @@
                             </div><!-- /.box-body -->
                             <div class="box-footer">
                                 <div class="col-md-offset-2">
-                                    <button class="btn btn-danger">Save <i class="fa fa-check-circle"></i></button>
+                                    <button class="btn btn-danger"><i class="fa fa-check-circle"></i> Save</button>
                                 </div>
                             </div><!-- /.box-footer-->
                         </form>

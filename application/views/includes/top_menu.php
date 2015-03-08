@@ -17,29 +17,27 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?php echo base_url('file_uploads/profile_images/default.png') ?>" class="user-image" alt="User Image"/>
+
+                        <?php
+                        if ($this->session->profile_image == "") {
+                            $profile_image = base_url('file_uploads/profile_images/default.png');
+                        } else {
+                            $profile_image = base_url('file_uploads/profile_images/' . $this->session->profile_image);
+                        }
+                        ?>
+
+
+                        <img src="<?php echo $profile_image ?>" class="user-image" alt="User Image"/>
                         <span class="hidden-xs"><?php echo ucfirst($this->session->first_name . ' ' . $this->session->last_name) ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?php echo base_url('file_uploads/profile_images/default.png') ?>" class="img-circle" alt="User Image" />
+                            <img src="<?php echo $profile_image ?>" class="img-circle" alt="User Image" />
                             <p>
-                                <?php echo ucfirst($this->session->first_name . ' ' . $this->session->last_name) ?> - Web Developer
+<?php echo ucfirst($this->session->first_name . ' ' . $this->session->last_name) ?> - Web Developer
                                 <small><?php echo $this->session->email_id ?></small>
                             </p>
-                        </li>
-                        <!-- Menu Body -->
-                        <li class="user-body">
-                            <div class="col-xs-4 text-center">
-                                <a href="#">Followers</a>
-                            </div>
-                            <div class="col-xs-4 text-center">
-                                <a href="#">Sales</a>
-                            </div>
-                            <div class="col-xs-4 text-center">
-                                <a href="#">Friends</a>
-                            </div>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">

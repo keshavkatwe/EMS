@@ -7,7 +7,14 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="<?php echo base_url('file_uploads/profile_images/default.png') ?>" class="img-circle" alt="User Image" />
+                <?php
+                if ($this->session->profile_image == "") {
+                    $profile_image = base_url('file_uploads/profile_images/default.png');
+                } else {
+                    $profile_image = base_url('file_uploads/profile_images/' . $this->session->profile_image);
+                }
+                ?>
+                <img src="<?php echo $profile_image ?>" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
                 <p><?php echo ucfirst($this->session->first_name . ' ' . $this->session->last_name) ?></p>
