@@ -41,9 +41,9 @@
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <div class="pull-left">
+<!--                            <div class="pull-left">
                                 <a href="<?php echo base_url('faculties/edit/'.$this->session->user_id) ?>" class="btn btn-default btn-flat">Profile</a>
-                            </div>
+                            </div>-->
                             <div class="pull-right">
                                 <a href="<?php echo base_url('account/logout') ?>" class="btn btn-default btn-flat">Sign out</a>
                             </div>
