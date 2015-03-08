@@ -18,7 +18,7 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Add Subject
+                        <?php echo $title; ?>
                     </h1>
                 </section>
 
@@ -26,36 +26,41 @@
                 <section class="content">
 
                     <div class="box box-default">
-                        
                         <!-- form start -->
                         <div class="row">
                             <div class="col-md-6">
-                                <form role="form" action="<?php echo base_url('subject/add_subject'); ?>" method="POST">
+                                <form role="form" action="<?php echo $submit_url; ?>" method="POST">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label for="subject_code">Subject code <span class="text-red">*</span></label>
-                                            <input type="text" class="form-control" id="subject_code" name="subject_code" placeholder="Subject code">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="subject_name">Subject name <span class="text-red">*</span></label>
-                                            <input type="text" class="form-control" id="subject_name" name="subject_name" placeholder="Subject name">
+                                            <label for="department">Department <span class="text-red">*</span></label>
+                                            <select name="department" id="department" class="form-control">
+                                                <option value="">--Choose--</option>
+                                                <?php echo get_departments(set_value('department',$form_data['department'])); ?>
+                                            </select>
+                                            <?php echo form_error('department'); ?>
                                         </div>
                                         <div class="form-group">
                                             <label for="semester">Semester <span class="text-red">*</span></label>
                                             <select name="semester" id="semester" class="form-control">
                                                 <option value="">--Choose--</option>
+                                                <?php echo get_semester(set_value('semester',$form_data['semester'])); ?>
                                             </select>
+                                            <?php echo form_error('semester'); ?>
                                         </div>
                                         <div class="form-group">
-                                            <label for="department">Department <span class="text-red">*</span></label>
-                                            <select name="department" id="department" class="form-control">
-                                                <option value="">--Choose--</option>
-                                            </select>
+                                            <label for="subject_code">Subject code <span class="text-red">*</span></label>
+                                            <input type="text" class="form-control" id="subject_code" name="subject_code" placeholder="Subject code" value="<?php echo set_value('subject_code',$form_data['subject_code']); ?>">
+                                            <?php echo form_error('subject_code'); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="subject_name">Subject name <span class="text-red">*</span></label>
+                                            <input type="text" class="form-control" id="subject_name" name="subject_name" placeholder="Subject name" value="<?php echo set_value('subject_name',$form_data['subject_name']); ?>">
+                                            <?php echo form_error('subject_name'); ?>
                                         </div>
                                     </div><!-- /.box-body -->
 
                                     <div class="box-footer">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-book"></i> Save</button>
                                     </div>
                                 </form>
                             </div>

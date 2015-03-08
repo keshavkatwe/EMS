@@ -20,7 +20,7 @@ function get_departments($department_id = NULL) {
         {
             $is_selected = 'selected';
         }
-        $department_string.='<option value="'.$depart['department_name'].'" '.$is_selected.'>'.$depart['department_name'].'</option>';
+        $department_string.='<option value="'.$depart['department_id'].'" '.$is_selected.'>'.$depart['department_name'].'</option>';
     }
     
     return $department_string;
