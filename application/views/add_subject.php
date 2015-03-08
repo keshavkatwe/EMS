@@ -60,7 +60,7 @@
                                     </div><!-- /.box-body -->
 
                                     <div class="box-footer">
-                                        <button type="submit" class="btn btn-primary"><i class="fa fa-book"></i> Save</button>
+                                        <button type="submit" class="btn btn-danger"><i class="fa fa-check-circle"></i> Save</button>
                                     </div>
                                 </form>
                             </div>
