@@ -35,15 +35,15 @@
                         <li class="user-header">
                             <img src="<?php echo $profile_image ?>" class="img-circle" alt="User Image" />
                             <p>
-<?php echo ucfirst($this->session->first_name . ' ' . $this->session->last_name) ?> - Web Developer
+                                <?php echo ucfirst($this->session->first_name . ' ' . $this->session->last_name) ?> - Web Developer
                                 <small><?php echo $this->session->email_id ?></small>
                             </p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-<!--                            <div class="pull-left">
-                                <a href="<?php echo base_url('faculties/edit/'.$this->session->user_id) ?>" class="btn btn-default btn-flat">Profile</a>
-                            </div>-->
+                            <div class="pull-left">
+                                <a href="<?php echo base_url('profile/edit/' . $this->session->user_id) ?>" class="btn btn-default btn-flat">Edit profile</a>
+                            </div>
                             <div class="pull-right">
                                 <a href="<?php echo base_url('account/logout') ?>" class="btn btn-default btn-flat">Sign out</a>
                             </div>
