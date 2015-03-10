@@ -106,6 +106,15 @@
 
 
             }
+            
+            
+            function assign_faculty(subject_id,faculty_id){
+                $.post(base_url("Assign_faculty/assign_staff"), {subject_id: subject_id, faculty_id: faculty_id}, function (data) {
+                    if(data){
+                        show_success("Faculty incharge updated successfully")
+                    }
+                });
+            }
         </script>
     </body>
 

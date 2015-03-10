@@ -28,11 +28,21 @@ class Assign_faculty extends Custom_controller {
             'dept' => $this->Assign_faculty_model->getDeptName($dept),
             'sem' => $semester,
             'subject_info' => $result,
-            'faculty_info' => $this->Assign_faculty_model->getFaculties($dept,$semester)
+            'faculty_info' => $this->Assign_faculty_model->getFaculties($dept, $semester)
         );
 
 
         echo $this->load->view("subview/subject_information", $data, TRUE);
+    }
+
+    function assign_staff() {
+        $data = array(
+            'subject_id' => $this->input->post('subject_id'),
+            'faculty_id' => $this->input->post('faculty_id')
+        );
+        
+        $result = $this->Assign_faculty_model->assign_staff_m($this->input->post('subject_id'), $data);
+        echo $result;
     }
 
 }
