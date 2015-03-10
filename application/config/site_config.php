@@ -1,4 +1,4 @@
 <?php
 
-$config['site_name'] = "EMS";
+$config['site_name'] = "AMS";
 
