@@ -100,7 +100,6 @@ class Students extends Custom_controller {
                 'first_name' => $this->input->post('first_name'),
                 'last_name' => $this->input->post('last_name'),
                 'email_id' => $this->input->post('email_id'),
-                'password' => $this->input->post('password'),
                 'gender' => $this->input->post('gender'),
                 'profile_image' => $profile_image,
                 'role_id' => 3,
@@ -257,7 +256,7 @@ class Students extends Custom_controller {
             $result = $this->student_model->update_student_m($user_id, $user_information, $student_information);
 
             if ($result) {
-                $this->session->set_flashdata("show_success", "Student added successfully");
+                $this->session->set_flashdata("show_success", "Student updated successfully");
                 redirect('students');
             }
         } else {
