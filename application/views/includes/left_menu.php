@@ -27,6 +27,18 @@
             <li class="header">MAIN NAVIGATION</li>
 
             <li class="<?php echo (isset($current_page) && $current_page == 'home') ? 'active' : '' ?>"><a href="<?php echo base_url() ?>"><i class="fa fa-home"></i> Home</a></li>
+            
+            <li class="treeview <?php echo (isset($current_tab) && $current_tab == 'students_tab') ? 'active' : '' ?>">
+                <a href="#">
+                    <i class="fa fa-user"></i>
+                    <span>Student</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="<?php echo (isset($current_page) && $current_page == 'add_student') ? 'active' : '' ?>"><a href="<?php echo base_url('students/add') ?>"><i class="fa fa-circle-o"></i> Add student</a></li>
+                    <li class="<?php echo (isset($current_page) && $current_page == 'students') ? 'active' : '' ?>"><a href="<?php echo base_url('students') ?>"><i class="fa fa-circle-o"></i> Manage students</a></li>
+                </ul>
+            </li>
             <li class="treeview <?php echo (isset($current_tab) && $current_tab == 'faculties_tab') ? 'active' : '' ?>">
                 <a href="#">
                     <i class="fa fa-users"></i> <span>Faculties</span> <i class="fa fa-angle-left pull-right"></i>
@@ -34,17 +46,6 @@
                 <ul class="treeview-menu">
                     <li class="<?php echo (isset($current_page) && $current_page == 'add_faculty') ? 'active' : '' ?>"><a href="<?php echo base_url('faculties/add'); ?>"><i class="fa fa-circle-o"></i> Add faculty</a></li>
                     <li class="<?php echo (isset($current_page) && $current_page == 'faculties') ? 'active' : '' ?>"><a href="<?php echo base_url('faculties'); ?>"><i class="fa fa-circle-o"></i> Manage faculties</a></li>
-                </ul>
-            </li>
-            <li class="treeview <?php echo (isset($current_tab) && $current_tab == 'students_tab') ? 'active' : '' ?>">
-                <a href="#">
-                    <i class="fa fa-users"></i>
-                    <span>Student</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="<?php echo (isset($current_page) && $current_page == 'add_student') ? 'active' : '' ?>"><a href="<?php echo base_url('students/add') ?>"><i class="fa fa-circle-o"></i> Add student</a></li>
-                    <li class="<?php echo (isset($current_page) && $current_page == 'students') ? 'active' : '' ?>"><a href="<?php echo base_url('students') ?>"><i class="fa fa-circle-o"></i> Manage students</a></li>
                 </ul>
             </li>
             <li class="treeview <?php echo (isset($current_tab) && $current_tab == 'subject') ? 'active' : '' ?>">

@@ -36,7 +36,20 @@
                             <img src="<?php echo $profile_image ?>" class="img-circle" alt="User Image" />
                             <p>
                                 <?php echo ucfirst($this->session->first_name . ' ' . $this->session->last_name) ?> - Web Developer
-                                <small><?php echo $this->session->email_id ?></small>
+                                <small><?php echo $this->session->email_id ?> - 
+                                    <?php
+                                    if ($this->session->role_id == 1) {
+                                        echo 'Admin';
+                                    }
+                                    else if($this->session->role_id == 2){
+                                        echo 'Faculty';
+                                    }
+                                    else
+                                    {
+                                        echo 'Student';
+                                    }
+                                    ?>
+                                </small>
                             </p>
                         </li>
                         <!-- Menu Footer-->

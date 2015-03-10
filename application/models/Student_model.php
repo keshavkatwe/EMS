@@ -77,7 +77,7 @@ class Student_model extends CI_Model {
         if ($user_id != NULL) {
             $this->db->where('u.user_id', $user_id);
         }
-        
+        $this->db->where('u.role_id', 3);
         
         $this->db->join('tbl_student s', 'u.user_id = s.user_id');
         $this->db->join('tbl_departments d', 's.department = d.department_id');

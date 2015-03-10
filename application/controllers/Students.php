@@ -11,7 +11,7 @@
  *
  * @author Keshav K
  */
-class Students extends CI_Controller {
+class Students extends Custom_controller {
 
     public function __construct() {
         parent::__construct();
@@ -151,8 +151,23 @@ class Students extends CI_Controller {
 
     public function edit($user_id = NULL) {
 
+        if($user_id == NULL)
+        {
+            $this->show_404();
+            return FALSE;
+        }
+        
+        
         $students_array = $this->student_model->fetch_students($user_id);
 
+        
+        if(!count($students_array))
+        {
+            $this->show_404();
+            return FALSE;
+        }
+        
+        
         if ($this->input->post('email_id') != $students_array['email_id']) {
             $is_unique = '|is_unique[tbl_users.email_id]';
         } else {
