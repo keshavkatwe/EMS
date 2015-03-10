@@ -15,7 +15,7 @@ class Home extends Custom_controller{
     
     public function __construct() {
         parent::__construct();
-        
+        $this->load->model('Home_model');
     }
     
     
@@ -23,7 +23,8 @@ class Home extends Custom_controller{
         
         $page_data = array(
             'current_tab' => 'home_tab',
-            'current_page' => 'home'
+            'current_page' => 'home',
+            'counts' => $this->Home_model->display_count()
         );
         
         $this->load->view('home', $page_data);

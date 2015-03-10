@@ -27,7 +27,7 @@
                                 <span class="info-box-icon bg-aqua"><i class="ion ion-ios-person-outline"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Students</span>
-                                    <span class="info-box-number">1,000</span>
+                                    <span class="info-box-number"><?php echo $counts['students']; ?></span>
                                 </div><!-- /.info-box-content -->
                             </div><!-- /.info-box -->
                         </div><!-- /.col -->
@@ -36,7 +36,7 @@
                                 <span class="info-box-icon bg-red"><i class="ion ion-ios-people-outline"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Faculty</span>
-                                    <span class="info-box-number">410</span>
+                                    <span class="info-box-number"><?php echo $counts['faculty']; ?></span>
                                 </div><!-- /.info-box-content -->
                             </div><!-- /.info-box -->
                         </div><!-- /.col -->
@@ -49,7 +49,7 @@
                                 <span class="info-box-icon bg-green"><i class="ion ion-ios-book-outline"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Subjects</span>
-                                    <span class="info-box-number">760</span>
+                                    <span class="info-box-number"><?php echo $counts['subjects']; ?></span>
                                 </div><!-- /.info-box-content -->
                             </div><!-- /.info-box -->
                         </div><!-- /.col -->
