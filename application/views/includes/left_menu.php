@@ -60,7 +60,7 @@
                     <li class="<?php echo (isset($current_page) && $current_page == 'assign_subject') ? 'active' : '' ?>"><a href="<?php echo base_url("subject/assign_subject"); ?>"><i class="fa fa-circle-o"></i> Assign subject</a></li>
                 </ul>
             </li>
-
+            <li class="<?php echo (isset($current_page) && $current_page == 'ia') ? 'active' : '' ?>"><a href="<?php echo base_url('ia') ?>"><i class="fa fa-check"></i> IA marks</a></li>
         </ul>
     </section>
     <!-- /.sidebar -->

@@ -1,0 +1,63 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of Ia_model
+ *
+ * @author Keshav K
+ */
+class Ia_model extends CI_Model {
+    public function get_faculty_semesters_m() {
+        $this->db->where('user_id', $this->session->user_id);
+        $this->db->order_by('semester');
+        $query = $this->db->get('tbl_faculty_sem_mapping');
+        return $query->result_array();
+    }
+    
+    public function get_faculty_subjects_m($sem) {
+        
+        $faculty_info = $this->faculty_info($this->session->user_id);
+        
+        
+        $condition = array(
+            's.semester' => $sem,
+            'fm.faculty_id' => $faculty_info['faculty_id'],
+            's.department' => $faculty_info['department']
+        );
+        
+        $this->db->from('tbl_faculty_sub_mapping fm');
+        $this->db->join("tbl_subject s", "fm.subject_id = s.subject_id", "LEFT");
+        $this->db->where($condition);
+        
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    
+    public function faculty_info($user_id) {
+        $this->db->where('user_id', $user_id);
+        $query = $this->db->get('tbl_faculty');
+        return $query->row_array();
+    }
+    
+    
+    public function get_students($sem) {
+        
+        $faculty_info = $this->faculty_info($this->session->user_id);
+        
+        $condition = array(
+            's.semester' => $sem,
+            's.department' => $faculty_info['department']
+        );
+        
+        $this->db->where($condition);
+        
+        $this->db->join("tbl_users u", "s.user_id = u.user_id", "LEFT");
+        $query = $this->db->get('tbl_student s');
+        return $query->result_array();
+    }
+}

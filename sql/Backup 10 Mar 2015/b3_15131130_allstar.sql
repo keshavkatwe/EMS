@@ -65,9 +65,6 @@ CREATE TABLE IF NOT EXISTS `tbl_faculty` (
 
 INSERT INTO `tbl_faculty` (`faculty_id`, `employee_id`, `user_id`, `designation`, `address`, `phone`, `department`) VALUES
 (13, '1868576', 14, 'lecturer', 'Government womens polytechnic bangalore-01', '9880059250', '1'),
-(9, '2201', 10, 'lj', 'udksfyk', '366945', ''),
-(10, '456', 11, 'hnhfcn', '', '2134566', ''),
-(5, 'asas', 6, 'asa', 'sas', 'asas', ''),
 (7, '2492292', 8, 'lecturer', 'Government womens polytechnic bangalore-01', '9886334222', '1'),
 (8, '', 9, 'lecturer', 'Government womens polytechnic bangalore-01', '9900113290', '1'),
 (12, '2379247', 13, 'lecturer', 'Government womens polytechnic bangalore-01', '8722816447', '1'),
