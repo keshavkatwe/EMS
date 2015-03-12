@@ -114,7 +114,9 @@ class Faculties extends Custom_controller {
 
             $profile_image = "";
 
-            $profile_image = $this->core_library->single_upload('profile_image', 'file_uploads/profile_images/');
+            if (!empty($_FILES['profile_image']['name'])) {
+                $profile_image = $this->core_library->single_upload('profile_image', 'file_uploads/profile_images/');
+            }
 
             $user_information = array(
                 'first_name' => $this->input->post('first_name'),
@@ -171,27 +173,25 @@ class Faculties extends Custom_controller {
     }
 
     public function edit($user_id = NULL) {
-        
-        
-        if($user_id == NULL)
-        {
+
+
+        if ($user_id == NULL) {
             $this->show_404();
             return FALSE;
         }
 
         $faculties_array = $this->faculty_model->fetch_faculties($user_id);
 
-        
-        if(!count($faculties_array))
-        {
+
+        if (!count($faculties_array)) {
             $this->show_404();
             return FALSE;
         }
-        
-        
+
+
         $sems = $this->faculty_model->sems_m($user_id);
 
-        
+
         if ($this->input->post('email_id') != $faculties_array['email_id']) {
             $is_unique = '|is_unique[tbl_users.email_id]';
         } else {
@@ -212,7 +212,7 @@ class Faculties extends Custom_controller {
             array(
                 'field' => 'email_id',
                 'label' => 'Email id',
-                'rules' => 'required|valid_email'.$is_unique.'|trim',
+                'rules' => 'required|valid_email' . $is_unique . '|trim',
             ),
             array(
                 'field' => 'gender',
