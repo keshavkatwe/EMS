@@ -15,7 +15,7 @@ $info = $this->session->flashdata("show_info");
 <!-- Bootstrap 3.3.2 JS -->
 <script src="<?php echo base_url('bower_components/bootstrap/dist/js/bootstrap.min.js') ?>" type="text/javascript"></script>
 <!-- SlimScroll -->
-<script src="<?php echo base_url('bower_components/slimScroll/jquery.slimScroll.min.js') ?>" type="text/javascript"></script>
+<!--<script src="<?php echo base_url('bower_components/slimScroll/jquery.slimScroll.min.js') ?>" type="text/javascript"></script>-->
 <!-- FastClick -->
 <script src="<?php echo base_url('bower_components/fastclick/fastclick.min.js') ?>"></script>
 <!-- AdminLTE App -->
