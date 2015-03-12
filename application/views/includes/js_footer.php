@@ -1,5 +1,5 @@
 <input type="hidden" id="base_url_hidden" value="<?php echo base_url(); ?>" />
-<?php   
+<?php
 $success = $this->session->flashdata("show_success");
 $warning = $this->session->flashdata("show_warning");
 $error = $this->session->flashdata("show_error");
@@ -30,3 +30,24 @@ $info = $this->session->flashdata("show_info");
 <script src="<?php echo base_url('bower_components/datatables/media/js/jquery.dataTables.min.js') ?>"></script>
 <script src="<?php echo base_url('dist/js/dataTables.bootstrap.js') ?>"></script>
 
+<script src="<?php echo base_url('bower_components/jquery-validation/dist/jquery.validate.min.js') ?>"></script>
+<script>
+    // override jquery validate plugin defaults
+    $.validator.setDefaults({
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+</script>
