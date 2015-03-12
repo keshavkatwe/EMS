@@ -69,7 +69,6 @@ class Profile extends Custom_controller{
                 'password' => $this->input->post('password'),
                 'gender' => $this->input->post('gender'),
                 'profile_image' => $profile_image,
-                'role_id' => 2,
             );
 
             

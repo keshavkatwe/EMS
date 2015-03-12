@@ -28,6 +28,9 @@
 
             <li class="<?php echo (isset($current_page) && $current_page == 'home') ? 'active' : '' ?>"><a href="<?php echo base_url() ?>"><i class="fa fa-home"></i> Home</a></li>
             
+            
+            <?php if($this->session->role_id == 1){ ?>
+            
             <li class="treeview <?php echo (isset($current_tab) && $current_tab == 'students_tab') ? 'active' : '' ?>">
                 <a href="#">
                     <i class="fa fa-user"></i>
@@ -60,6 +63,7 @@
                     <li class="<?php echo (isset($current_page) && $current_page == 'assign_subject') ? 'active' : '' ?>"><a href="<?php echo base_url("subject/assign_subject"); ?>"><i class="fa fa-circle-o"></i> Assign subject</a></li>
                 </ul>
             </li>
+            <?php } ?>
             <li class="<?php echo (isset($current_page) && $current_page == 'ia') ? 'active' : '' ?>"><a href="<?php echo base_url('ia') ?>"><i class="fa fa-check"></i> IA marks</a></li>
         </ul>
     </section>
