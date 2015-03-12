@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title><?php echo $this->config->item('site_name') ?> | <?php echo ucfirst($operation) ?> faculty</title>
+        <title><?php echo $this->config->item('site_name') ?> | <?php echo ucfirst($operation) ?> student</title>
 
         <?php $this->load->view('includes/css_header') ?>
     </head>
@@ -18,13 +18,13 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        <?php echo ucfirst($operation) ?> faculty
+                        <?php echo ucfirst($operation) ?> student
                     </h1>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
-
+                    
                     <!-- Default box -->
                     <div class="box">
                         <form method="post" enctype="multipart/form-data">
@@ -37,13 +37,13 @@
                                                 <div class="fileinput-new thumbnail" style="max-width: 100px;">
                                                     
                                                     <?php 
-                                                    if($faculties_array['profile_image'] == "" || $faculties_array['profile_image'] == 0)
+                                                    if($students_array['profile_image'] == "" || $students_array['profile_image'] == 0)
                                                     {
                                                         $profile_image = base_url('file_uploads/profile_images/default.png');
                                                     }
                                                     else
                                                     {
-                                                        $profile_image = base_url('file_uploads/profile_images/'.$faculties_array['profile_image']);
+                                                        $profile_image = base_url('file_uploads/profile_images/'.$students_array['profile_image']);
                                                     }
                                                     ?>
                                                     
@@ -63,61 +63,44 @@
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label>First name</label>
-                                            <input type="text" class="form-control" name="first_name" id="first_name" value="<?php echo set_value('first_name',$faculties_array['first_name']) ?>"/>
+                                            <input type="text" class="form-control" name="first_name" id="first_name" value="<?php echo set_value('first_name',$students_array['first_name']) ?>"/>
                                             <?php echo form_error('first_name'); ?>
                                         </div>
                                         <div class="form-group">
                                             <label>Email id</label>
-                                            <input type="text" class="form-control" name="email_id" id="email_id" value="<?php echo set_value('email_id',$faculties_array['email_id']) ?>"/>
+                                            <input type="text" class="form-control" name="email_id" id="email_id" value="<?php echo set_value('email_id',$students_array['email_id']) ?>"/>
                                             <?php echo form_error('email_id'); ?>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label>Password</label>
-                                            <input type="password" class="form-control" name="password" id="password" value="<?php echo set_value('password',$faculties_array['password']) ?>"/>
-                                            <?php echo form_error('password'); ?>
-                                        </div>
+                                        
 
 
                                         <div class="form-group">
                                             <label>Department</label>
                                             <select class="form-control" name="department" id="department">
-                                                <option value="">Choose department</option>
-                                                <?php echo get_departments(set_value('department', $faculties_array['department'])); ?>
+                                                <option value="">--Choose department--</option>
+                                                <?php echo get_departments(set_value('department', $students_array['department'])); ?>
                                             </select>
                                             <?php echo form_error('department'); ?>
                                         </div>
                                         <div class="form-group">
-                                            <label>Semesters</label>
-                                            <div class="row">
-                                                <?php for ($i = 1; $i <= 6; $i++) { 
-                                                    $is_checked = FALSE;
-                                                    foreach ($sems as $sem) {
-                                                        if($sem['semester'] == $i)
-                                                        {
-                                                            $is_checked = TRUE;
-                                                        }
-                                                    }
-                                                    ?>
-                                                    <div class="col-md-6">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input name="sems[]" class="flat-red" type="checkbox" value="<?php echo $i ?>" <?php echo set_checkbox('sems[]', $i, $is_checked) ?>>
-                                                                <?php echo singledigit($i); ?>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                <?php } ?>
-                                            </div>
-
-
+                                            <label>Semester</label>
+                                            <select class="form-control" name="semester" id="semester">
+                                                <option value="">--Choose semester--</option>
+                                                <?php echo get_semester(set_value('semester', $students_array['semester'])); ?>
+                                            </select>
+                                            <?php echo form_error('semester'); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <textarea type="text" class="form-control" name="address" id="address"><?php echo set_value('address',$students_array['address']) ?></textarea>
+                                            <?php echo form_error('address'); ?>
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label>Last name</label>
-                                            <input type="text" class="form-control" name="last_name" id="last_name" value="<?php echo set_value('last_name',$faculties_array['last_name']) ?>"/>
+                                            <input type="text" class="form-control" name="last_name" id="last_name" value="<?php echo set_value('last_name',$students_array['last_name']) ?>"/>
                                             <?php echo form_error('last_name'); ?>
                                         </div>
                                         <div class="form-group">
@@ -125,43 +108,33 @@
                                             <label>Gender</label>
                                             <div>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="gender" value="male" class="flat-red" <?php echo set_radio('gender', 'male',(($faculties_array['gender'] == 'male')?TRUE:FALSE)) ?>> Male
+                                                    <input type="radio" name="gender" value="male" class="flat-red" <?php echo set_radio('gender', 'male',(($students_array['gender'] == 'male')?TRUE:FALSE)) ?>> Male
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="gender" value="female" class="flat-red" <?php echo set_radio('gender', 'female',(($faculties_array['gender'] == 'female')?TRUE:FALSE)) ?>> Female
+                                                    <input type="radio" name="gender" value="female" class="flat-red" <?php echo set_radio('gender', 'female',(($students_array['gender'] == 'female')?TRUE:FALSE)) ?>> Female
                                                 </label>
                                             </div>
                                             <?php echo form_error('gender'); ?>
                                         </div>
                                         
                                         
-                                        <?php if($operation == 'add') { ?>
                                         <div class="form-group">
-                                            <label>Confirm password</label>
-                                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" value="<?php echo set_value('confirm_password') ?>"/>
-                                            <?php echo form_error('confirm_password'); ?>
-                                        </div>
-                                        <?php } ?>
-                                        <div class="form-group">
-                                            <label>Phone</label>
-                                            <input type="text" class="form-control" name="phone" id="phone" value="<?php echo set_value('phone',$faculties_array['phone']) ?>"/>
-                                            <?php echo form_error('phone'); ?>
+                                            <label>Mobile number</label>
+                                            <input type="text" class="form-control" name="mobile" id="mobile" value="<?php echo set_value('mobile',$students_array['mobile']) ?>"/>
+                                            <?php echo form_error('mobile'); ?>
                                         </div>
                                         <div class="form-group">
-                                            <label>Employee id</label>
-                                            <input type="text" class="form-control" name="employee_id" id="employee_id" value="<?php echo set_value('employee_id',$faculties_array['employee_id']) ?>"/>
-                                            <?php echo form_error('employee_id'); ?>
+                                            <label>Register number</label>
+                                            <input type="text" class="form-control" name="reg_number" id="reg_number" value="<?php echo set_value('reg_number',$students_array['reg_number']) ?>"/>
+                                            <?php echo form_error('reg_number'); ?>
                                         </div>
                                         <div class="form-group">
-                                            <label>Designation</label>
-                                            <input type="text" class="form-control" name="designation" id="designation" value="<?php echo set_value('designation',$faculties_array['designation']) ?>"/>
-                                            <?php echo form_error('designation'); ?>
+                                            <label>Roll number</label>
+                                            <input type="text" class="form-control" name="roll_number" id="roll_number" value="<?php echo set_value('roll_number',$students_array['roll_number']) ?>"/>
+                                            <?php echo form_error('roll_number'); ?>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Address</label>
-                                            <textarea type="text" class="form-control" name="address" id="address"><?php echo set_value('address',$faculties_array['address']) ?></textarea>
-                                            <?php echo form_error('address'); ?>
-                                        </div>
+                                        
+                                        
                                     </div>
                                 </div>
 

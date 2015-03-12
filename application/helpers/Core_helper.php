@@ -58,8 +58,8 @@ function singledigit($number){
         case 2:$word = "Second";break;
         case 3:$word = "Third";break;
         case 4:$word = "Fourth";break;
-        case 5:$word = "Fivth";break;
-        case 6:$word = "Sixed";break;
+        case 5:$word = "Fifth";break;
+        case 6:$word = "Sixth";break;
     }
     return $word;
 }

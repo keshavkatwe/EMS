@@ -108,6 +108,8 @@ class Faculty_model extends CI_Model {
             $this->db->where('u.user_id', $user_id);
         }
 
+        $this->db->where('u.role_id', 2);
+        
         $this->db->join('tbl_faculty f', 'u.user_id = f.user_id');
         $this->db->join('tbl_departments d', 'f.department = d.department_id');
         $query = $this->db->get('tbl_users u');

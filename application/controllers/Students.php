@@ -7,46 +7,29 @@
  */
 
 /**
- * Description of Faculties
+ * Description of Students
  *
  * @author Keshav K
  */
-class Faculties extends Custom_controller {
+class Students extends Custom_controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('faculty_model');
+        $this->load->model('student_model');
     }
 
     public function index() {
 
-        $faculties_array = $this->faculty_model->fetch_faculties();
-
-        $faculty_list = array();
-
-        function get_name($i) {
-            return $i['semester'];
-        }
-
-        foreach ($faculties_array as $faculty) {
-
-            $sems = $this->faculty_model->sems_m($faculty['user_id']);
-
-            $values = array_map('get_name', $sems);
-
-            $faculty['sem'] = implode(',', $values);
-
-            $faculty_list[] = $faculty;
-        }
+        $students_list = $this->student_model->fetch_students();
 
 
         $page_data = array(
-            'current_tab' => 'faculties_tab',
-            'current_page' => 'faculties',
-            'faculties_array' => $faculty_list
+            'current_tab' => 'students_tab',
+            'current_page' => 'students',
+            'students_list' => $students_list
         );
 
-        $this->load->view('faculties', $page_data);
+        $this->load->view('students', $page_data);
     }
 
     public function add() {
@@ -73,39 +56,34 @@ class Faculties extends Custom_controller {
                 'rules' => 'required|trim',
             ),
             array(
-                'field' => 'password',
-                'label' => 'Password',
-                'rules' => 'required|trim',
-            ),
-            array(
-                'field' => 'confirm_password',
-                'label' => 'Confirm password',
-                'rules' => 'required|matches[password]|trim',
-            ),
-            array(
-                'field' => 'phone',
-                'label' => 'Phone number',
-                'rules' => 'required|trim',
-            ),
-            array(
                 'field' => 'department',
                 'label' => 'Department',
-                'rules' => 'trim',
+                'rules' => 'required|trim',
             ),
             array(
-                'field' => 'employee_id',
-                'label' => 'Employee id',
-                'rules' => 'trim',
+                'field' => 'mobile',
+                'label' => 'Mobile number',
+                'rules' => 'required|trim',
             ),
             array(
-                'field' => 'designation',
-                'label' => 'Designation',
-                'rules' => 'trim',
+                'field' => 'semester',
+                'label' => 'Semester',
+                'rules' => 'required|trim',
+            ),
+            array(
+                'field' => 'reg_number',
+                'label' => 'Register number',
+                'rules' => 'required|trim',
             ),
             array(
                 'field' => 'address',
                 'label' => 'Address',
                 'rules' => 'trim',
+            ),
+            array(
+                'field' => 'roll_number',
+                'label' => 'Roll number',
+                'rules' => 'required|integer|trim',
             ),
         );
 
@@ -114,7 +92,9 @@ class Faculties extends Custom_controller {
 
             $profile_image = "";
 
-            $profile_image = $this->core_library->single_upload('profile_image', 'file_uploads/profile_images/');
+            if (!empty($_FILES['profile_image']['name'])) {
+                $profile_image = $this->core_library->single_upload('profile_image', 'file_uploads/profile_images/');
+            }
 
             $user_information = array(
                 'first_name' => $this->input->post('first_name'),
@@ -123,76 +103,72 @@ class Faculties extends Custom_controller {
                 'password' => $this->input->post('password'),
                 'gender' => $this->input->post('gender'),
                 'profile_image' => $profile_image,
-                'role_id' => 2,
+                'role_id' => 3,
             );
 
-            $faculty_information = array(
-                'employee_id' => $this->input->post('employee_id'),
-                'designation' => $this->input->post('designation'),
-                'address' => $this->input->post('address'),
-                'phone' => $this->input->post('phone'),
+            $student_information = array(
+                'reg_number' => $this->input->post('reg_number'),
+                'roll_number' => $this->input->post('roll_number'),
+                'semester' => $this->input->post('semester'),
                 'department' => $this->input->post('department'),
+                'address' => $this->input->post('address'),
+                'mobile' => $this->input->post('mobile'),
             );
 
-            $semesters = $this->input->post('sems');
-            $result = $this->faculty_model->add_faculty_m($user_information, $faculty_information, $semesters);
+            $result = $this->student_model->add_student_m($user_information, $student_information);
 
             if ($result) {
-                $this->session->set_flashdata("show_success", "Faculty added successfully");
-                redirect('faculties');
+                $this->session->set_flashdata("show_success", "Student added successfully");
+                redirect('students');
             }
         } else {
 
-            $faculties_array = array(
+            $students_array = array(
                 'first_name' => '',
+                'last_name' => '',
                 'email_id' => '',
                 'password' => '',
-                'last_name' => '',
                 'gender' => '',
-                'phone' => '',
-                'employee_id' => '',
-                'designation' => '',
+                'profile_image' => '',
+                'reg_number' => '',
+                'roll_number' => '',
+                'semester' => '',
+                'department' => '',
                 'address' => '',
-                'profile_image' => ''
+                'mobile' => '',
             );
-
-            $sems = array();
 
             $page_data = array(
-                'current_tab' => 'faculties_tab',
-                'current_page' => 'add_faculty',
-                'faculties_array' => $faculties_array,
+                'current_tab' => 'students_tab',
+                'current_page' => 'add_student',
                 'operation' => 'add',
-                'sems' => $sems
+                'students_array' => $students_array
             );
 
-            $this->load->view('add_faculty', $page_data);
+            $this->load->view('add_student', $page_data);
         }
     }
 
     public function edit($user_id = NULL) {
-        
-        
+
         if($user_id == NULL)
         {
             $this->show_404();
             return FALSE;
         }
-
-        $faculties_array = $this->faculty_model->fetch_faculties($user_id);
+        
+        
+        $students_array = $this->student_model->fetch_students($user_id);
 
         
-        if(!count($faculties_array))
+        if(!count($students_array))
         {
             $this->show_404();
             return FALSE;
         }
         
         
-        $sems = $this->faculty_model->sems_m($user_id);
-
-        
-        if ($this->input->post('email_id') != $faculties_array['email_id']) {
+        if ($this->input->post('email_id') != $students_array['email_id']) {
             $is_unique = '|is_unique[tbl_users.email_id]';
         } else {
             $is_unique = '';
@@ -220,41 +196,41 @@ class Faculties extends Custom_controller {
                 'rules' => 'required|trim',
             ),
             array(
-                'field' => 'password',
-                'label' => 'Password',
-                'rules' => 'required|trim',
-            ),
-            array(
-                'field' => 'phone',
-                'label' => 'Phone number',
-                'rules' => 'required|trim',
-            ),
-            array(
                 'field' => 'department',
                 'label' => 'Department',
-                'rules' => 'trim',
+                'rules' => 'required|trim',
             ),
             array(
-                'field' => 'employee_id',
-                'label' => 'Employee id',
-                'rules' => 'trim',
+                'field' => 'mobile',
+                'label' => 'Mobile number',
+                'rules' => 'required|trim',
             ),
             array(
-                'field' => 'designation',
-                'label' => 'Designation',
-                'rules' => 'trim',
+                'field' => 'semester',
+                'label' => 'Semester',
+                'rules' => 'required|trim',
+            ),
+            array(
+                'field' => 'reg_number',
+                'label' => 'Register number',
+                'rules' => 'required|trim',
             ),
             array(
                 'field' => 'address',
                 'label' => 'Address',
                 'rules' => 'trim',
             ),
+            array(
+                'field' => 'roll_number',
+                'label' => 'Roll number',
+                'rules' => 'required|integer|trim',
+            ),
         );
 
         $this->form_validation->set_rules($config);
         if ($this->form_validation->run() == TRUE) {
 
-            $profile_image = $faculties_array['profile_image'];
+            $profile_image = $students_array['profile_image'];
 
             if (!empty($_FILES['profile_image']['name'])) {
                 $profile_image = $this->core_library->single_upload('profile_image', 'file_uploads/profile_images/');
@@ -267,47 +243,47 @@ class Faculties extends Custom_controller {
                 'password' => $this->input->post('password'),
                 'gender' => $this->input->post('gender'),
                 'profile_image' => $profile_image,
-                'role_id' => 2,
             );
 
-            $faculty_information = array(
-                'employee_id' => $this->input->post('employee_id'),
-                'designation' => $this->input->post('designation'),
-                'address' => $this->input->post('address'),
-                'phone' => $this->input->post('phone'),
+            $student_information = array(
+                'reg_number' => $this->input->post('reg_number'),
+                'roll_number' => $this->input->post('roll_number'),
+                'semester' => $this->input->post('semester'),
                 'department' => $this->input->post('department'),
+                'address' => $this->input->post('address'),
+                'mobile' => $this->input->post('mobile'),
             );
 
-            $semesters = $this->input->post('sems');
-            $result = $this->faculty_model->update_faculty_m($user_id, $user_information, $faculty_information, $semesters);
+            $result = $this->student_model->update_student_m($user_id, $user_information, $student_information);
 
             if ($result) {
-                $this->session->set_flashdata("show_success", "Faculty updated successfully");
-                redirect('faculties');
+                $this->session->set_flashdata("show_success", "Student added successfully");
+                redirect('students');
             }
         } else {
+
             $page_data = array(
-                'current_tab' => 'faculties_tab',
-                'current_page' => 'edit_faculty',
-                'faculties_array' => $faculties_array,
-                'sems' => $sems,
-                'operation' => 'edit'
+                'current_tab' => 'students_tab',
+                'current_page' => 'edit_student',
+                'operation' => 'edit',
+                'students_array' => $students_array
             );
 
-            $this->load->view('add_faculty', $page_data);
+            $this->load->view('add_student', $page_data);
         }
     }
 
+    
     public function delete($user_id) {
-        $result = $this->faculty_model->delete_faculty($user_id);
+        $result = $this->student_model->delete_student($user_id);
 
         if ($result) {
-            $this->session->set_flashdata('show_success', "Faculty deleted successfully");
-            redirect(base_url('faculties'));
+            $this->session->set_flashdata('show_success', "Student deleted successfully");
+            redirect(base_url('students'));
         } else {
             $this->session->set_flashdata('show_error', "Something went wrong...");
-            redirect(base_url('faculties'));
+            redirect(base_url('students'));
         }
     }
-
+    
 }

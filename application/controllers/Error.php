@@ -7,20 +7,14 @@
  */
 
 /**
- * Description of Custom_controller
+ * Description of Error
  *
  * @author Keshav K
  */
-class Custom_controller extends CI_Controller{
-    public function __construct() {
-        parent::__construct();
-        if(!$this->session->user_id)
-        {
-            redirect(base_url('account'));
-        }
-    }
+class Error extends Custom_controller{
     
     public function show_404() {
         $this->load->view('errors/404_error_page');
     }
+    
 }
