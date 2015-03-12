@@ -50,6 +50,17 @@
                         <div class="clearfix visible-sm-block"></div>
 
                         <div class="col-md-3 col-sm-6 col-xs-12">
+                            <a href="<?php echo base_url('subject/manage_subject') ?>">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-green"><i class="ion ion-ios-book-outline"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Subjects</span>
+                                        <span class="info-box-number"><?php echo $counts['subjects']; ?></span>
+                                    </div><!-- /.info-box-content -->
+                                </div><!-- /.info-box -->
+                            </a>
+                        </div><!-- /.col -->
+
                     </div>
 
                 </section><!-- /.content -->
