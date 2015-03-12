@@ -64,7 +64,11 @@
                 </ul>
             </li>
             <?php } ?>
+            
+            
+            <?php if($this->session->role_id == 2){ ?>
             <li class="<?php echo (isset($current_page) && $current_page == 'ia') ? 'active' : '' ?>"><a href="<?php echo base_url('ia') ?>"><i class="fa fa-check"></i> IA marks</a></li>
+            <?php } ?>
         </ul>
     </section>
     <!-- /.sidebar -->

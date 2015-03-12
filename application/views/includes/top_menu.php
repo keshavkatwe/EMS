@@ -1,5 +1,5 @@
 <header class="main-header">
-    <a href="../../index2.html" class="logo"><?php echo $this->config->item('site_name') ?></a>
+    <a href="<?php echo base_url() ?>" class="logo"><?php echo $this->config->item('site_name') ?></a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
@@ -35,7 +35,7 @@
                         <li class="user-header">
                             <img src="<?php echo $profile_image ?>" class="img-circle" alt="User Image" />
                             <p>
-                                <?php echo ucfirst($this->session->first_name . ' ' . $this->session->last_name) ?> - Web Developer
+                                <?php echo ucfirst($this->session->first_name . ' ' . $this->session->last_name) ?>
                                 <small><?php echo $this->session->email_id ?> - 
                                     <?php
                                     if ($this->session->role_id == 1) {
