@@ -20,7 +20,7 @@
 
                 <!-- Main content -->
                 <section class="content">
-
+                    <?php if($this->session->role_id == 1){ ?>
                     <div class="row">
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <a href="<?php echo base_url('students') ?>">
@@ -62,7 +62,7 @@
                         </div><!-- /.col -->
 
                     </div>
-
+                    <?php } ?>
                 </section><!-- /.content -->
             </div><!-- /.content-wrapper -->
 
