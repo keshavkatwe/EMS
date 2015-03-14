@@ -90,6 +90,10 @@
                                 </div>
 
                             </div><!-- /.box-body -->
+                            <div class="text-green text-center" style="display: none" id="attendance_already_taken">
+                                Attendance have been already logged to chosen date and subject.<br>
+                                <b>Note : Change of field values will update records in database</b>
+                            </div>
                         </form>
                     </div><!-- /.box -->
                 </section><!-- /.content -->
@@ -166,7 +170,7 @@
                     var sem = $('#sem').val();
                     var subject_id = $('#subjects').val();
                     var date = $('#date').val();
-                    
+
                     $('#subject_id_hidden').val(subject_id);
                     $('#date_hidden').val(date);
 
@@ -178,7 +182,8 @@
                     $.post(base_url("attendance/students_ajax"),
                             {
                                 sem: sem,
-                                subject_id: subject_id
+                                subject_id: subject_id,
+                                date: date
                             },
                     function (data)
                     {
@@ -198,6 +203,16 @@
                         }
                         else {
                             document.getElementById("save_attendance").style.display = "none";
+                        }
+
+                        if (reply_array['action'] == "update") {
+                            document.getElementById("save_attendance").style.display = "none";
+                            document.getElementById("attendance_already_taken").style.display = "";
+
+                        }
+                        else {
+                            document.getElementById("save_attendance").style.display = "";
+                            document.getElementById("attendance_already_taken").style.display = "none";
                         }
 
                     });
@@ -228,6 +243,23 @@
 
             }
 
+
+            function update_attendance(attendance_id, status) {
+                $.post(base_url("attendance/update_attendance_ajax"),
+                        {
+                            attendance_id: attendance_id,
+                            status: status
+                        },
+                function (data)
+                {
+                    if(data){
+                        show_success("Student attendance updated successfully");
+                    }
+                    else{
+                        show_error("Something went wrong,Please try after sometime");
+                    }
+                });
+            }
 
         </script>
 

@@ -29,7 +29,15 @@ class attendance extends Custom_controller {
     public function students_ajax() {
         $sem = $this->input->post('sem');
         $subject_id = $this->input->post('subject_id');
+        $date = $this->input->post('date');
+        $faculty_id = $this->session->faculty_id;
 
+        $if_already_taken = $this->attendance_model->if_already_taken_m($faculty_id, $subject_id, $date);
+        if ($if_already_taken > 0) {
+            $action = "update";
+        } else {
+            $action = "add";
+        }
 
         $is_success = TRUE;
         $response_data = "";
@@ -43,6 +51,7 @@ class attendance extends Custom_controller {
             $i = 0;
             foreach ($students as $student) {
                 $student["index_id"] = $i;
+                $student["attendance"] = $this->attendance_model->get_attendance_id($faculty_id, $subject_id, $date, $student['student_id']);
                 $students_data .= $this->load->view('subview/student_attendance', $student, TRUE);
                 $i++;
             }
@@ -56,7 +65,8 @@ class attendance extends Custom_controller {
         $json_data = array(
             'success' => $is_success,
             'data' => $response_data,
-            'count' => count($students)
+            'count' => count($students),
+            'action' => $action
         );
 
         echo json_encode($json_data);
@@ -80,20 +90,26 @@ class attendance extends Custom_controller {
                 'date' => $date
             );
         }
-        
-        
-        $if_already_taken = $this->attendance_model->if_already_taken_m($faculty_id,$subject_id,$date);
-        
-        if($if_already_taken){
-            $this->session->set_flashdata("show_warning","Attendance to choosen date and subject is already takens");
+
+
+        $if_already_taken = $this->attendance_model->if_already_taken_m($faculty_id, $subject_id, $date);
+
+        if ($if_already_taken) {
+            $this->session->set_flashdata("show_warning", "Attendance to choosen date and subject is already takens");
+            redirect(base_url("attendance"));
+        } else {
+            $result = $this->attendance_model->add_attendance($attendance_data);
+            $this->session->set_flashdata("show_success", "Attendance updated successfully");
             redirect(base_url("attendance"));
         }
-        else{
-            $result = $this->attendance_model->update_attendance($attendance_data);
-            $this->session->set_flashdata("show_success","Attendance updated successfully");
-            redirect(base_url("attendance"));
-        }
-        
+    }
+
+    function update_attendance_ajax() {
+        $attendance_id = $this->input->post("attendance_id");
+        $update_data = array(
+            "status" => $this->input->post("status")
+        );
+        echo $this->attendance_model->update_attendance($update_data, $attendance_id);
     }
 
 }
