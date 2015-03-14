@@ -47,8 +47,8 @@ class Account extends CI_Controller {
         } else {
             
             $login_data = array(
-                'email_id' => $this->input->post('email_id'),
-                'password' => $this->input->post('password')
+                'u.email_id' => $this->input->post('email_id'),
+                'u.password' => $this->input->post('password')
             );
             
             $result = $this->account_model->login_m($login_data);
