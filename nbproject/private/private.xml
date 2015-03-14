@@ -3,8 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/EMS/application/views/includes/left_menu.php</file>
-            <file>file:/C:/xampp/htdocs/EMS/application/controllers/Students.php</file>
+            <file>file:/C:/xampp/htdocs/EMS/application/views/attendance.php</file>
+            <file>file:/C:/xampp/htdocs/EMS/application/controllers/Account.php</file>
+            <file>file:/C:/xampp/htdocs/EMS/application/controllers/Ia.php</file>
+            <file>file:/C:/xampp/htdocs/EMS/application/views/subview/student_attendance.php</file>
+            <file>file:/C:/xampp/htdocs/EMS/application/controllers/attendance.php</file>
+            <file>file:/C:/xampp/htdocs/EMS/application/models/attendance_model.php</file>
         </group>
     </open-files>
 </project-private>
