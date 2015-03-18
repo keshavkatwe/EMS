@@ -234,6 +234,7 @@
             
         </script>
 
+        <script src="<?php echo base_url('bower_components/angular/angular.min.js') ?>"></script>
     </body>
 
 

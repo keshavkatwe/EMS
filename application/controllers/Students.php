@@ -41,11 +41,6 @@ class Students extends Custom_controller {
                 'rules' => 'required|trim'
             ),
             array(
-                'field' => 'last_name',
-                'label' => 'Last name',
-                'rules' => 'required|trim',
-            ),
-            array(
                 'field' => 'email_id',
                 'label' => 'Email id',
                 'rules' => 'required|valid_email|is_unique[tbl_users.email_id]|trim',
@@ -53,6 +48,16 @@ class Students extends Custom_controller {
             array(
                 'field' => 'gender',
                 'label' => 'Gender',
+                'rules' => 'required|trim',
+            ),
+            array(
+                'field' => 'parent_name',
+                'label' => 'Parent/Guardian name',
+                'rules' => 'required|trim',
+            ),
+            array(
+                'field' => 'parent_number',
+                'label' => 'Parent/Guardian number',
                 'rules' => 'required|trim',
             ),
             array(
@@ -106,6 +111,8 @@ class Students extends Custom_controller {
             );
 
             $student_information = array(
+                'parent_name' => $this->input->post('parent_name'),
+                'parent_number' => $this->input->post('parent_number'),
                 'reg_number' => $this->input->post('reg_number'),
                 'roll_number' => $this->input->post('roll_number'),
                 'semester' => $this->input->post('semester'),
@@ -127,6 +134,8 @@ class Students extends Custom_controller {
                 'last_name' => '',
                 'email_id' => '',
                 'password' => '',
+                'parent_name' => '',
+                'parent_number' => '',
                 'gender' => '',
                 'profile_image' => '',
                 'reg_number' => '',
@@ -195,6 +204,16 @@ class Students extends Custom_controller {
                 'rules' => 'required|trim',
             ),
             array(
+                'field' => 'parent_name',
+                'label' => 'Parent/Guardian name',
+                'rules' => 'required|trim',
+            ),
+            array(
+                'field' => 'parent_number',
+                'label' => 'Parent/Guardian number',
+                'rules' => 'required|trim',
+            ),
+            array(
                 'field' => 'department',
                 'label' => 'Department',
                 'rules' => 'required|trim',
@@ -245,6 +264,8 @@ class Students extends Custom_controller {
             );
 
             $student_information = array(
+                'parent_name' => $this->input->post('parent_name'),
+                'parent_number' => $this->input->post('parent_number'),
                 'reg_number' => $this->input->post('reg_number'),
                 'roll_number' => $this->input->post('roll_number'),
                 'semester' => $this->input->post('semester'),

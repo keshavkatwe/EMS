@@ -5,7 +5,7 @@
  *
  * @author Happy
  */
-class attendance extends Custom_controller {
+class Attendance extends Custom_controller {
 
     public function __construct() {
         parent::__construct();
