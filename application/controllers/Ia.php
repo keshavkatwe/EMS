@@ -53,8 +53,11 @@ class Ia extends Custom_controller {
 
     public function students_ajax() {
 
-        $sem = $this->input->post('sem');
-        $subject_id = $this->input->post('subject_id');
+
+        $marks_options = (json_decode(file_get_contents('php://input')));
+
+        $sem = $marks_options->sem;
+        $subject_id = $marks_options->subject_id;
 
 
         $is_success = TRUE;
@@ -64,19 +67,19 @@ class Ia extends Custom_controller {
         $students = $this->ia_model->get_students($sem, $subject_id);
 
 
-        $students_data = "";
-        if (count($students)) {
-            foreach ($students as $student) {
-                $students_data .= $this->load->view('subview/student_ia_information', $student, TRUE);
-            }
-        }
-        else
-        {
-            $students_data = '<tr><td class="text-center" colspan="8">No students</td><tr>';
-        }
+//        $students_data = "";
+//        if (count($students)) {
+//            foreach ($students as $student) {
+//                $students_data .= $this->load->view('subview/student_ia_information', $student, TRUE);
+//            }
+//        }
+//        else
+//        {
+//            $students_data = '<tr><td class="text-center" colspan="8">No students</td><tr>';
+//        }
 
 
-        $response_data = $students_data;
+        $response_data = $students;
 
         $json_data = array(
             'success' => $is_success,
