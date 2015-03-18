@@ -194,17 +194,17 @@ class Subject extends Custom_controller {
             echo '<table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <td width="10%">Si No.</td>
-                            <td width="20%">Subject Code</td>
-                            <td width="30%">Subject Name</td>
-                            <td width="*">Faculty Incharge</td>
-                            <td width="10%">View Details</td>
+                            <th width="10%">Si No.</th>
+                            <th width="20%">Subject Code</th>
+                            <th width="30%">Subject Name</th>
+                            <th width="*">Faculty Incharge</th>
+                            <th width="10%">View Details</th>
                         </tr>
                     </thead>
                     <tbody>';
             
                         if(sizeof($getSemSummary)==0){
-                           echo '<tr><td colspan="4" class="text-center">No Records found</td></tr>';
+                           echo '<tr><td colspan="5" class="text-center">No Records found</td></tr>';
                         }
                         $i=1;
                         foreach ($getSemSummary as $semInfo) {
