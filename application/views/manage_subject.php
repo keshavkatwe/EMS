@@ -30,6 +30,7 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
+                                        <th>Si No.</th>
                                         <th>Subject Code</th>
                                         <th>Subject Name</th>
                                         <th>Semester</th>
@@ -39,10 +40,12 @@
                                 </thead>
                                 <tbody>
                                     <?php
+                                    $i=1;
                                     foreach ($subject_list as $sub) {
                                         $edit_url = base_url('subject/update_subject/' . $sub['subject_id']);
                                         $delete_url = base_url('subject/delete_subject/' . $sub['subject_id']);
                                         echo "  <tr>
+                                                    <td>{$i}</td>
                                                     <td>{$sub['subject_code']}</td>
                                                     <td>{$sub['subject_name']}</td>
                                                     <td>{$sub['semester']}</td>
@@ -52,6 +55,7 @@
                                                         <a href='{$delete_url}' class='btn btn-danger btn-xs'>Delete</a>
                                                     </td>    
                                                 </tr>";
+                                        $i++;               
                                     }
                                     ?>
 

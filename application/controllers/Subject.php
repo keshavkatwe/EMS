@@ -165,14 +165,57 @@ class Subject extends Custom_controller {
         }
         redirect(base_url('subject/manage_subject'));
     }
-    
-    
+
     function assign_subject() {
         $data = array(
             'current_tab' => 'subject',
             'current_page' => 'assign_subject'
         );
         $this->load->view("assign_subject", $data);
+    }
+
+    function subject_summary() {
+        $data = array(
+            'current_tab' => 'subject',
+            'current_page' => 'subject_summary',
+            'departments' => $this->Subject_model->getDepartments()
+        );
+        $this->load->view("subject_summary", $data);
+    }
+
+    function getDeptSummary() {
+        $department_id = $this->input->post("dept_id");
+        foreach (getSemValues() as $sem) {
+            echo "<h4>Semester {$sem}</h4>";
+            $getSemSummary = $this->Subject_model->getSemSummary($department_id, $sem);
+
+
+
+            echo '<table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <td width="10%">Si No.</td>
+                            <td width="20%">Subject Code</td>
+                            <td width="30%">Subject Name</td>
+                            <td width="*">Faculty Incharge</td>
+                            <td width="10%">View Details</td>
+                        </tr>
+                    </thead>
+                    <tbody>';
+            
+                        if(sizeof($getSemSummary)==0){
+                           echo '<tr><td colspan="4" class="text-center">No Records found</td></tr>';
+                        }
+                        $i=1;
+                        foreach ($getSemSummary as $semInfo) {
+                            $semInfo['sno'] = $i;
+                            echo $this->load->view("subview/department_summary", $semInfo, TRUE);
+                            $i++;
+                        }
+
+            echo ' </tbody>
+                </table>';
+        }
     }
 
 }

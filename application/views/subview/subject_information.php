@@ -3,6 +3,7 @@
 <table class="table table-hover">
     <thead>
         <tr>
+            <th>Si No.</th>
             <th>Subject code</th>
             <th>Subject name</th>
             <th>Faculty Incharge</th>
@@ -10,8 +11,10 @@
     </thead>
     <tbody>
         <?php
+        $i=1;
         foreach ($subject_info as $sub) {
             echo "<tr>
+                    <td>{$i}</td>
                     <td>{$sub['subject_code']}</td>
                     <td>{$sub['subject_name']}</td>
                     <td>";
@@ -31,6 +34,7 @@
         <?php
         echo "</td>
                 </tr>";
+        $i++;
     }
     ?>
 

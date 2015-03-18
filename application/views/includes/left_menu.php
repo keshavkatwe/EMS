@@ -61,6 +61,7 @@
                     <li class="<?php echo (isset($current_page) && $current_page == 'add_subject') ? 'active' : '' ?>"><a href="<?php echo base_url("subject/add_subject"); ?>"><i class="fa fa-circle-o"></i> Add subject</a></li>
                     <li class="<?php echo (isset($current_page) && $current_page == 'manage_subject') ? 'active' : '' ?>"><a href="<?php echo base_url("subject/manage_subject"); ?>"><i class="fa fa-circle-o"></i> Manage subject</a></li>
                     <li class="<?php echo (isset($current_page) && $current_page == 'assign_subject') ? 'active' : '' ?>"><a href="<?php echo base_url("subject/assign_subject"); ?>"><i class="fa fa-circle-o"></i> Assign subject</a></li>
+                    <li class="<?php echo (isset($current_page) && $current_page == 'subject_summary') ? 'active' : '' ?>"><a href="<?php echo base_url("subject/subject_summary"); ?>"><i class="fa fa-circle-o"></i> Summary</a></li>
                 </ul>
             </li>
             <?php } ?>
@@ -69,7 +70,7 @@
             <?php if($this->session->role_id == 2){ ?>
             <li class="<?php echo (isset($current_page) && $current_page == 'ia') ? 'active' : '' ?>"><a href="<?php echo base_url('ia') ?>"><i class="fa fa-check"></i> IA marks</a></li>
 
-            <li class="<?php echo (isset($current_page) && $current_page == 'attendance') ? 'active' : '' ?>"><a href="<?php echo base_url('attendance') ?>"><i class="fa fa-calendar"></i> Attendance</a></li>
+            <li class="<?php echo (isset($current_page) && $current_page == 'attendance') ? 'active' : '' ?>"><a href="<?php echo base_url('attendance') ?>"><i class="fa fa-calendar"></i> Mark Attendance</a></li>
 
             <?php } ?>
 
