@@ -72,7 +72,11 @@
                                             <?php echo form_error('email_id'); ?>
                                         </div>
 
-                                        
+                                        <div class="form-group">
+                                            <label>Parent/Guardian name</label>
+                                            <input type="text" class="form-control" name="parent_name" id="parent_name" value="<?php echo set_value('parent_name',$students_array['parent_name']) ?>"/>
+                                            <?php echo form_error('parent_name'); ?>
+                                        </div>
 
 
                                         <div class="form-group">
@@ -103,8 +107,8 @@
                                             <input type="text" class="form-control" name="last_name" id="last_name" value="<?php echo set_value('last_name',$students_array['last_name']) ?>"/>
                                             <?php echo form_error('last_name'); ?>
                                         </div>
-                                        <div class="form-group">
-                                            
+                                        
+                                        <div class="form-group" style="margin-top: 26px;">
                                             <label>Gender</label>
                                             <div>
                                                 <label class="radio-inline">
@@ -115,6 +119,13 @@
                                                 </label>
                                             </div>
                                             <?php echo form_error('gender'); ?>
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group">
+                                            <label>Parent/Guardian mobile number</label>
+                                            <input type="text" class="form-control" name="parent_number" id="parent_number" value="<?php echo set_value('parent_number',$students_array['parent_number']) ?>"/>
+                                            <?php echo form_error('parent_number'); ?>
                                         </div>
                                         
                                         
