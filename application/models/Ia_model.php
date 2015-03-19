@@ -58,6 +58,7 @@ class Ia_model extends CI_Model {
         
         $this->db->join("tbl_ia_marks ism", "s.user_id = ism.user_id and ism.subject_id = {$subject_id}", "LEFT");
         $this->db->join("tbl_users u", "s.user_id = u.user_id", "LEFT");
+        $this->db->order_by("s.roll_number","asc");
         $query = $this->db->get('tbl_student s');
         return $query->result_array();
     }
