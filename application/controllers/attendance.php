@@ -25,6 +25,26 @@ class Attendance extends Custom_controller {
 
         $this->load->view('attendance', $page_data);
     }
+    
+    public function subjects_ajax() {
+        $is_success = TRUE;
+        $response_data = "";
+
+
+        $sem = $this->input->post('sem');
+
+        $subjects = $this->attendance_model->get_faculty_subjects_m($sem);
+
+
+        $response_data = $subjects;
+
+        $json_data = array(
+            'success' => $is_success,
+            'data' => $response_data
+        );
+
+        echo json_encode($json_data);
+    }
 
     public function students_ajax() {
         $sem = $this->input->post('sem');
