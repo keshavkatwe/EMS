@@ -7,6 +7,25 @@
  */
 class attendance_model extends CI_Model {
 
+    public function get_faculty_subjects_m($sem) {
+
+        $faculty_info = $this->faculty_info($this->session->user_id);
+
+
+        $condition = array(
+            's.semester' => $sem,
+            'fm.faculty_id' => $faculty_info['faculty_id'],
+            's.department' => $faculty_info['department']
+        );
+
+        $this->db->from('tbl_faculty_sub_mapping fm');
+        $this->db->join("tbl_subject s", "fm.subject_id = s.subject_id", "LEFT");
+        $this->db->where($condition);
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    
     function add_attendance($data) {
         if ($this->db->insert_batch('tbl_attendance', $data)) {
             return TRUE;

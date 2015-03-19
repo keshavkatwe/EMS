@@ -121,7 +121,7 @@
                 $('#students').html("");
                 document.getElementById("save_attendance").style.display = "none";
 
-                $.post(base_url("ia/subjects_ajax"),
+                $.post(base_url("attendance/subjects_ajax"),
                         {
                             sem: sem
                         },
