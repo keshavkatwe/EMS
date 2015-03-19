@@ -15,6 +15,37 @@ class attendance_model extends CI_Model {
         }
     }
     
+    public function get_faculty_semesters_m() {
+        $this->db->where('user_id', $this->session->user_id);
+        $this->db->order_by('semester');
+        $query = $this->db->get('tbl_faculty_sem_mapping');
+        return $query->result_array();
+    }
+    
+     public function faculty_info($user_id) {
+        $this->db->where('user_id', $user_id);
+        $query = $this->db->get('tbl_faculty');
+        return $query->row_array();
+    }
+    
+     public function get_students($sem, $subject_id) {
+
+        $faculty_info = $this->faculty_info($this->session->user_id);
+
+        $condition = array(
+            's.semester' => $sem,
+            's.department' => $faculty_info['department'],
+        );
+
+        $this->db->where($condition);
+        
+        $this->db->join("tbl_ia_marks ism", "s.user_id = ism.user_id and ism.subject_id = {$subject_id}", "LEFT");
+        $this->db->join("tbl_users u", "s.user_id = u.user_id", "LEFT");
+        $this->db->order_by("s.roll_number","asc");
+        $query = $this->db->get('tbl_student s');
+        return $query->result_array();
+    }
+    
     
     function update_attendance($update_data,$attendance_id) {
         $this->db->where('attendance_id', $attendance_id);

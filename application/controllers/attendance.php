@@ -10,12 +10,11 @@ class Attendance extends Custom_controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('attendance_model');
-        $this->load->model('ia_model');
     }
 
     public function index() {
 
-        $sems = $this->ia_model->get_faculty_semesters_m();
+        $sems = $this->attendance_model->get_faculty_semesters_m();
 
         $page_data = array(
             'current_tab' => 'attendance_tab',
@@ -43,7 +42,7 @@ class Attendance extends Custom_controller {
         $response_data = "";
 
 
-        $students = $this->ia_model->get_students($sem, $subject_id);
+        $students = $this->attendance_model->get_students($sem, $subject_id);
 
 
         $students_data = "";
@@ -110,6 +109,16 @@ class Attendance extends Custom_controller {
             "status" => $this->input->post("status")
         );
         echo $this->attendance_model->update_attendance($update_data, $attendance_id);
+    }
+    
+    function attendance_report() {
+        $this->load->model('Subject_model');
+         $data = array(
+            'current_tab' => 'attendance_tab',
+            'current_page' => 'attendance_report',
+            'departments' => $this->Subject_model->getDepartments()
+        );
+        $this->load->view("attendance_report", $data);
     }
 
 }
