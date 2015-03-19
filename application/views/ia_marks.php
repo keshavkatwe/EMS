@@ -93,7 +93,7 @@
                                         <td ng-init="updateMarks(student)" class="text-center">
                                             {{student.average}}
                                         </td>
-                                        <td class="text-center">{{student.present}}</td>
+                                        <td class="text-center">{{((student.number_taken / student.present) ? 'NaN':'0') | percentage}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -185,7 +185,11 @@
 
             });
 
-
+            app.filter('percentage', ['$filter', function ($filter) {
+  return function (input, decimals) {
+    return $filter('number')(input * 100, decimals) + '%';
+  };
+}]);
 
             function get_average(ia_1, ia_2, ia_3)
             {
