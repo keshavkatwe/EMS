@@ -32,11 +32,14 @@ class Ia extends Custom_controller {
     }
 
     public function subjects_ajax() {
+        
+         
+        
         $is_success = TRUE;
         $response_data = "";
 
 
-        $sem = $this->input->post('sem');
+        $sem = json_decode(file_get_contents('php://input'));
 
         $subjects = $this->ia_model->get_faculty_subjects_m($sem);
 
@@ -91,25 +94,31 @@ class Ia extends Custom_controller {
 
     public function marks_update() {
 
+        $student = (json_decode(file_get_contents('php://input')));
+        
         $is_success = TRUE;
         $response_data = "";
 
 
         $faculty_info = $this->ia_model->faculty_info($this->session->user_id);
 
-        $student_user_id = $this->input->post('student_user_id');
-        $sem = $this->input->post('sem');
-        $subject_id = $this->input->post('subject_id');
-        $marks = $this->input->post('marks');
-        $ia_number = $this->input->post('ia_number');
+        $student_user_id = $student->user_id;
+        $sem = $student->sem;$this->input->post('sem');
+        $subject_id = $student->subject_id;$this->input->post('subject_id');
 
 
+        $ia_1 = $student->ia_1;
+        $ia_2 = $student->ia_2;
+        $ia_3 = $student->ia_3;
+        
         $marks_data = array(
             'user_id' => $student_user_id,
             'faculty_id' => $faculty_info['faculty_id'],
             'subject_id' => $subject_id,
             'sem' => $sem,
-            'ia_' . $ia_number => $marks
+            'ia_1' => $ia_1,
+            'ia_2' => $ia_2,
+            'ia_3' => $ia_3,
         );
 
         $result = $this->ia_model->update_ia_marks($marks_data);

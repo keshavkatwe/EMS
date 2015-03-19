@@ -33,7 +33,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Semester</label>
-                                            <select id="sem" name="sem" ng-model="marks.sem" class="form-control" onchange="get_subjects(this.value)">
+                                            <select id="sem" name="sem" ng-model="marks.sem" class="form-control" ng-change="get_subjects(marks.sem)">
                                                 <option value="">--Choose--</option>
                                                 <?php
                                                 foreach ($sems as $sem) {
@@ -46,8 +46,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Subject</label>
-                                            <select class="form-control" ng-model="marks.subject_id" id="subjects" name="subjects">
-                                                <option value="">--Choose--</option>
+                                            <select class="form-control" ng-model="marks.subject_id"  id="subjects" name="subjects">
+                                                <option ng-repeat="subject in subjects" ng-if="true" value="{{subject.subject_id}}">{{subject.subject_name}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -65,13 +65,14 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Roll no</th>
-                                        <th class="text-center">Reg no</th>
+                                        <th class="text-center" style="width: 6%;">Roll no</th>
+                                        <th class="text-center" style="width: 9%;">Reg no</th>
                                         <th>Student name</th>
-                                        <th class="text-center">IA - 1</th>
-                                        <th class="text-center">IA - 2</th>
-                                        <th class="text-center">IA - 3</th>
-                                        <th class="text-center">Average</th>
+                                        <th class="text-center" style="width: 10%;">IA - 1</th>
+                                        <th class="text-center" style="width: 10%;">IA - 2</th>
+                                        <th class="text-center" style="width: 10%;">IA - 3</th>
+                                        <th class="text-center" style="width: 10%;">Average</th>
+                                        <th class="text-center" style="width: 10%;">Attendance</th>
                                     </tr>
                                 </thead>
                                 <tbody id="students">
@@ -81,26 +82,18 @@
                                         <td class="text-center">{{ student.reg_number}}</td>
                                         <td>{{ student.first_name + ' ' + student.last_name}}</td>
                                         <td>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" ng-model="student.ia_1" ng-blur="updateMarks(student)"/>
-                                                <span class="input-group-addon" id="basic-addon1">{{student.ia_1 / 2}}</span>
-                                            </div>
+                                            <input class="form-control" type="text" ng-model="student.ia_1" ng-blur="updateMarks(student)"/>
                                         </td>
                                         <td>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" ng-model="student.ia_2" ng-blur="updateMarks(student)"/>
-                                                <span class="input-group-addon" id="basic-addon1">{{student.ia_2 / 2}}</span>
-                                            </div>
+                                            <input class="form-control" type="text" ng-model="student.ia_2" ng-blur="updateMarks(student)"/>
                                         </td>
                                         <td>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" ng-model="student.ia_3" ng-blur="updateMarks(student)"/>
-                                                <span class="input-group-addon" id="basic-addon1">{{student.ia_3 / 2}}</span>
-                                            </div>
+                                            <input class="form-control" type="text" ng-model="student.ia_3" ng-blur="updateMarks(student)"/>
                                         </td>
-                                        <td ng-init="updateMarks(student)">
+                                        <td ng-init="updateMarks(student)" class="text-center">
                                             {{student.average}}
                                         </td>
+                                        <td class="text-center">{{student.present}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -126,54 +119,92 @@
 
 
         <script>
-        var app = angular.module('AMS', []);
-        app.controller('myCtrl', function ($scope, $http) {
-            $scope.getStudents = function (marks_data) {
-
-                var req = {
-                    method: 'POST',
-                    url: base_url("ia/students_ajax"),
-                    headers: {'Content-Type': 'application/json'},
-                    data: JSON.stringify(marks_data)
+            var app = angular.module('AMS', []);
+            app.controller('myCtrl', function ($scope, $http) {
+                
+//                $scope.subjects = [
+//                    {"make": "Nissan", "model": "Sentra"},
+//                    {"make": "Honda", "model": "Prelude"},
+//                    {"make": "Toyota", "model": "Prius"}
+//                ]
+                
+                $scope.getStudents = function (marks_data) {
+                    var req = {
+                        method: 'POST',
+                        url: base_url("ia/students_ajax"),
+                        headers: {'Content-Type': 'application/json'},
+                        data: JSON.stringify(marks_data)
+                    };
+                    $http(req)
+                    .success(function (response) {
+                        $scope.students = response.data;
+                
+                    });
                 };
 
+                $scope.updateMarks = function (student_info) {
 
-                $http(req)
-                        .success(function (response) {
-                            $scope.students = response.data;
-                            console.log($scope.students);
+                    var ia_1 = student_info.ia_1;
+                    var ia_2 = student_info.ia_2;
+                    var ia_3 = student_info.ia_3;
 
-                        });
+                    var average_marks = get_average(ia_1, ia_2, ia_3);
 
-            };
-            
-            
-            
-            $scope.updateMarks = function (student_info) {
+                    $http({
+                        method: 'POST',
+                        url: base_url("ia/marks_update"),
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        data: JSON.stringify(student_info)
+                    })
+                    .success(function (response) {
+                        show_success('Marks updated successfully');
+                    });
+
+                    student_info.average = average_marks;
+                };
                 
-                var ia_1 = student_info.ia_1;
-                var ia_2 = student_info.ia_2;
-                var ia_3 = student_info.ia_3;
+                
+                $scope.get_subjects = function (sem) {
+                    
+                    var req = {
+                        method: 'POST',
+                        url: base_url("ia/subjects_ajax"),
+                        headers: {'Content-Type': 'application/json'},
+                        data: JSON.stringify(sem)
+                    };
+                    $http(req)
+                    .success(function (response) {
+                        console.log(response.data);
+                        $scope.subjects = response.data;
+                        
+                        $scope.marks.subject_id = response.data[0].subject_id;
+                        
+                    });
+                    
+                };
+
+            });
 
 
-                ia_1 = (ia_1 == "") ? 0 : ia_1;
-                ia_2 = (ia_2 == "") ? 0 : ia_2;
-                ia_3 = (ia_3 == "") ? 0 : ia_3;
+
+            function get_average(ia_1, ia_2, ia_3)
+            {
+                ia_1 = (ia_1 === "") ? 0 : ia_1;
+                ia_2 = (ia_2 === "") ? 0 : ia_2;
+                ia_3 = (ia_3 === "") ? 0 : ia_3;
 
                 var marks = [ia_1, ia_2, ia_3];
 
                 marks.sort(function (a, b) {
-                    return b - a
+                    return b - a;
                 });
 
                 var average_marks = (Number(marks[0]) + Number(marks[1])) / 2;
-
-                //$('#average_' + user_id).html(average_marks);
-                student_info.average = average_marks;
                 
-            };
-            
-        });
+                
+                return average_marks;
+            }
+
         </script>
 
 

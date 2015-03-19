@@ -51,8 +51,8 @@
                                         <td class="text-center"><?php echo $student['roll_number'] ?></td>
                                         <td class="text-center"><?php echo $student['reg_number'] ?></td>
                                         <td>
-                                            <a class="btn btn-primary btn-sm" href="<?php echo base_url('students/edit/'.$student['user_id']) ?>"><i class="fa fa-pencil"></i> Edit</a>
-                                            <a class="btn btn-danger btn-sm" href="<?php echo base_url('students/delete/'.$student['user_id']) ?>"><i class="fa fa-trash-o"></i> Delete</a>
+                                            <a class="btn btn-primary btn-xs" href="<?php echo base_url('students/edit/'.$student['user_id']) ?>"><i class="fa fa-pencil"></i> Edit</a>
+                                            <a class="btn btn-danger btn-xs" href="<?php echo base_url('students/delete/'.$student['user_id']) ?>"><i class="fa fa-trash-o"></i> Delete</a>
                                         </td>
                                     </tr>
                                     <?php } ?>

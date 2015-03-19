@@ -51,8 +51,8 @@
                                         <td><?php echo $faculty['department_name'] ?></td>
                                         <td><?php echo $faculty['sem'] ?></td>
                                         <td>
-                                            <a class="btn btn-primary btn-sm" href="<?php echo base_url('faculties/edit/'.$faculty['user_id']) ?>"><i class="fa fa-pencil"></i> Edit</a>
-                                            <a class="btn btn-danger btn-sm" href="<?php echo base_url('faculties/delete/'.$faculty['user_id']) ?>"><i class="fa fa-trash-o"></i> Delete</a>
+                                            <a class="btn btn-primary btn-xs" href="<?php echo base_url('faculties/edit/'.$faculty['user_id']) ?>"><i class="fa fa-pencil"></i> Edit</a>
+                                            <a class="btn btn-danger btn-xs" href="<?php echo base_url('faculties/delete/'.$faculty['user_id']) ?>"><i class="fa fa-trash-o"></i> Delete</a>
                                         </td>
                                     </tr>
                                     <?php } ?>
