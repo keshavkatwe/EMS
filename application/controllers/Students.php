@@ -83,7 +83,7 @@ class Students extends Custom_controller {
             array(
                 'field' => 'address',
                 'label' => 'Address',
-                'rules' => 'trim',
+                'rules' => 'required|trim',
             ),
             array(
                 'field' => 'roll_number',
@@ -236,7 +236,7 @@ class Students extends Custom_controller {
             array(
                 'field' => 'address',
                 'label' => 'Address',
-                'rules' => 'trim',
+                'rules' => 'required|trim',
             ),
             array(
                 'field' => 'roll_number',

@@ -5,7 +5,7 @@
  *
  * @author Happy
  */
-class attendance_model extends CI_Model {
+class Attendance_model extends CI_Model {
 
     public function get_faculty_subjects_m($sem) {
 
@@ -24,6 +24,12 @@ class attendance_model extends CI_Model {
 
         $query = $this->db->get();
         return $query->result_array();
+    }
+    
+    public function faculty_info($user_id) {
+        $this->db->where('user_id', $user_id);
+        $query = $this->db->get('tbl_faculty');
+        return $query->row_array();
     }
     
     function add_attendance($data) {
