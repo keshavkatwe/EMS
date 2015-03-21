@@ -120,7 +120,8 @@ class Attendance_model extends CI_Model {
         $this->db->order_by("s.roll_number", "asc");
         $student_query = $this->db->get();
 
-        $this->db->order_by("subject_code", "asc");
+        
+        $this->db->order_by("subject_type", "asc");
         $subject_query = $this->db->get_where('tbl_subject', array(
             'semester' => $filter_data['semester'],
             'department' => $filter_data['dept_id']
