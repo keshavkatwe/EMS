@@ -21,7 +21,7 @@ class Account_model extends CI_Model{
 //        
 //        return $query->row_array();
         
-        $this->db->select("u.*,f.faculty_id");
+        $this->db->select("u.*,f.faculty_id,f.department");
         $this->db->from("tbl_users as u");
         $this->db->join("tbl_faculty f", "u.user_id = f.user_id", "LEFT");
         $this->db->where($credentials);

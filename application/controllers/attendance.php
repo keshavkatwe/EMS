@@ -9,12 +9,12 @@ class Attendance extends Custom_controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('attendance_model');
+        $this->load->model('Attendance_model');
     }
 
     public function index() {
 
-        $sems = $this->attendance_model->get_faculty_semesters_m();
+        $sems = $this->Attendance_model->get_faculty_semesters_m();
 
         $page_data = array(
             'current_tab' => 'attendance_tab',
@@ -32,7 +32,7 @@ class Attendance extends Custom_controller {
 
         $sem = $this->input->post('sem');
 
-        $subjects = $this->attendance_model->get_faculty_subjects_m($sem);
+        $subjects = $this->Attendance_model->get_faculty_subjects_m($sem);
 
 
         $response_data = $subjects;
@@ -51,7 +51,7 @@ class Attendance extends Custom_controller {
         $date = $this->input->post('date');
         $faculty_id = $this->session->faculty_id;
 
-        $if_already_taken = $this->attendance_model->if_already_taken_m($faculty_id, $subject_id, $date);
+        $if_already_taken = $this->Attendance_model->if_already_taken_m($faculty_id, $subject_id, $date);
         if ($if_already_taken > 0) {
             $action = "update";
         } else {
@@ -62,7 +62,7 @@ class Attendance extends Custom_controller {
         $response_data = "";
 
 
-        $students = $this->attendance_model->get_students($sem, $subject_id);
+        $students = $this->Attendance_model->get_students($sem, $subject_id);
 
 
         $students_data = "";
@@ -70,7 +70,7 @@ class Attendance extends Custom_controller {
             $i = 0;
             foreach ($students as $student) {
                 $student["index_id"] = $i;
-                $student["attendance"] = $this->attendance_model->get_attendance_id($faculty_id, $subject_id, $date, $student['student_id']);
+                $student["attendance"] = $this->Attendance_model->get_attendance_id($faculty_id, $subject_id, $date, $student['student_id']);
                 $students_data .= $this->load->view('subview/student_attendance', $student, TRUE);
                 $i++;
             }
@@ -111,13 +111,13 @@ class Attendance extends Custom_controller {
         }
 
 
-        $if_already_taken = $this->attendance_model->if_already_taken_m($faculty_id, $subject_id, $date);
+        $if_already_taken = $this->Attendance_model->if_already_taken_m($faculty_id, $subject_id, $date);
 
         if ($if_already_taken) {
             $this->session->set_flashdata("show_warning", "Attendance to choosen date and subject is already takens");
             redirect(base_url("attendance"));
         } else {
-            $result = $this->attendance_model->add_attendance($attendance_data);
+            $result = $this->Attendance_model->add_attendance($attendance_data);
             $this->session->set_flashdata("show_success", "Attendance updated successfully");
             redirect(base_url("attendance"));
         }
@@ -128,7 +128,7 @@ class Attendance extends Custom_controller {
         $update_data = array(
             "status" => $this->input->post("status")
         );
-        echo $this->attendance_model->update_attendance($update_data, $attendance_id);
+        echo $this->Attendance_model->update_attendance($update_data, $attendance_id);
     }
     
     function attendance_report() {
@@ -140,5 +140,26 @@ class Attendance extends Custom_controller {
         );
         $this->load->view("attendance_report", $data);
     }
+    
+    function getDeptReport(){
+        $filter_data = array(
+            'dept_id' => $this->input->post('dept_id'),
+            'semester' => $this->input->post('semester'),
+            'search_type' => $this->input->post('search_type'),
+            'keyword' => $this->input->post('keywork')
+        );
+        
+        $return_data = $this->Attendance_model->getDeptReportData($filter_data);
+        $data_report = array(
+            'report_info' => $return_data['student_list'],
+            'subject_list' => $return_data['subject_list'],
+            'attendance_report' => $return_data['attendance_report'],
+            'total_classes_taken' => $return_data['total_classes_taken']
+        );
+        
+        echo $this->load->view("subview/attendance_report",$data_report, TRUE);
+        
+    }
 
+    
 }
