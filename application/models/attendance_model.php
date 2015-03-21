@@ -111,8 +111,11 @@ class attendance_model extends CI_Model {
 
         if ($filter_data['search_type'] == 1 and $filter_data['keyword'] != "") {
             $this->db->where("s.roll_number", $filter_data['keyword']);
+        } else if ($filter_data['search_type'] == 2 and $filter_data['keyword'] != "") {
+            $this->db->like('u.first_name', $filter_data['keyword']);
+            $this->db->or_like('u.last_name', $filter_data['keyword']); 
         } else if ($filter_data['search_type'] == 3 and $filter_data['keyword'] != "") {
-            $this->db->like("s.reg_number", $filter_data['keyword']);
+            $this->db->where("s.reg_number", $filter_data['keyword']);
         }
         $this->db->order_by("s.roll_number", "asc");
         $student_query = $this->db->get();
