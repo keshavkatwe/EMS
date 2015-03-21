@@ -82,6 +82,9 @@ class Student_model extends CI_Model {
         $this->db->join('tbl_student s', 'u.user_id = s.user_id');
         $this->db->join('tbl_departments d', 's.department = d.department_id');
         
+        $this->db->order_by('s.semester', 'asc');
+        $this->db->order_by('s.roll_number', 'asc');
+        
         $query = $this->db->get('tbl_users u');
 
         if ($user_id == NULL) {
