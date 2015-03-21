@@ -70,17 +70,19 @@
             <?php if($this->session->role_id == 2){ ?>
             <li class="<?php echo (isset($current_page) && $current_page == 'ia') ? 'active' : '' ?>"><a href="<?php echo base_url('ia') ?>"><i class="fa fa-check"></i> IA marks</a></li>
             <?php } ?>
+            
+            <?php if($this->session->role_id == 2){ ?>
+            <li class="<?php echo (isset($current_page) && $current_page == 'attendance') ? 'active' : '' ?>"><a href="<?php echo base_url('attendance') ?>"><i class="fa fa-calculator"></i> Mark Attendance</a></li>
+            <?php } ?>
            
-            <li class="treeview <?php echo (isset($current_tab) && $current_tab == 'attendance_tab') ? 'active' : '' ?>">
+            <li class="treeview <?php echo (isset($current_tab) && $current_tab == 'report_tab') ? 'active' : '' ?>">
                 <a href="#">
-                    <i class="fa fa-calculator"></i>
-                    <span>Attendance</span>
+                    <i class="fa fa-list"></i>
+                    <span>Reports</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <?php if($this->session->role_id == 2){ ?>
-                    <li class="<?php echo (isset($current_page) && $current_page == 'attendance') ? 'active' : '' ?>"><a href="<?php echo base_url("attendance"); ?>"><i class="fa fa-circle-o"></i> Mark Attendance</a></li>
-                    <?php } ?>
+                    <li class="<?php echo (isset($current_page) && $current_page == 'ia_report') ? 'active' : '' ?>"><a href="<?php echo base_url("report/ia_report"); ?>"><i class="fa fa-circle-o"></i> IA report</a></li>
                     <li class="<?php echo (isset($current_page) && $current_page == 'attendance_report') ? 'active' : '' ?>"><a href="<?php echo base_url("attendance/attendance_report"); ?>"><i class="fa fa-circle-o"></i> Attendance Report</a></li>
                 </ul>
             </li>
