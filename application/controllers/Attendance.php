@@ -134,7 +134,7 @@ class Attendance extends Custom_controller {
     function attendance_report() {
         $this->load->model('Subject_model');
          $data = array(
-            'current_tab' => 'attendance_tab',
+            'current_tab' => 'report_tab',
             'current_page' => 'attendance_report',
             'departments' => $this->Subject_model->getDepartments()
         );
