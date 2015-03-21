@@ -45,6 +45,7 @@ class Subject extends Custom_controller {
             $insert_subject = array(
                 'subject_code' => $this->input->post('subject_code'),
                 'subject_name' => $this->input->post('subject_name'),
+                'subject_type' => $this->input->post('subject_type'),
                 'semester' => $this->input->post('semester'),
                 'department' => $this->input->post('department')
             );
@@ -66,7 +67,8 @@ class Subject extends Custom_controller {
                     'subject_code' => NULL,
                     'subject_name' => NULL,
                     'department' => NULL,
-                    'semester' => NULL
+                    'semester' => NULL,
+                    'subject_type' => NULL,
                 )
             );
             $this->load->view("add_subject", $data);
@@ -102,6 +104,7 @@ class Subject extends Custom_controller {
             $update_subject = array(
                 'subject_code' => $this->input->post('subject_code'),
                 'subject_name' => $this->input->post('subject_name'),
+                'subject_type' => $this->input->post('subject_type'),
                 'semester' => $this->input->post('semester'),
                 'department' => $this->input->post('department')
             );

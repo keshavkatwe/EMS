@@ -35,7 +35,7 @@
                                             <label for="department">Department <span class="text-red">*</span></label>
                                             <select name="department" id="department" class="form-control">
                                                 <option value="">--Choose--</option>
-                                                <?php echo get_departments(set_value('department',$form_data['department'])); ?>
+                                                <?php echo get_departments(set_value('department', $form_data['department'])); ?>
                                             </select>
                                             <?php echo form_error('department'); ?>
                                         </div>
@@ -43,19 +43,29 @@
                                             <label for="semester">Semester <span class="text-red">*</span></label>
                                             <select name="semester" id="semester" class="form-control">
                                                 <option value="">--Choose--</option>
-                                                <?php echo get_semester(set_value('semester',$form_data['semester'])); ?>
+                                                <?php echo get_semester(set_value('semester', $form_data['semester'])); ?>
                                             </select>
                                             <?php echo form_error('semester'); ?>
                                         </div>
                                         <div class="form-group">
                                             <label for="subject_code">Subject code <span class="text-red">*</span></label>
-                                            <input type="text" class="form-control" id="subject_code" name="subject_code" placeholder="Subject code" value="<?php echo set_value('subject_code',$form_data['subject_code']); ?>">
+                                            <input type="text" class="form-control" id="subject_code" name="subject_code" placeholder="Subject code" value="<?php echo set_value('subject_code', $form_data['subject_code']); ?>">
                                             <?php echo form_error('subject_code'); ?>
                                         </div>
                                         <div class="form-group">
                                             <label for="subject_name">Subject name <span class="text-red">*</span></label>
-                                            <input type="text" class="form-control" id="subject_name" name="subject_name" placeholder="Subject name" value="<?php echo set_value('subject_name',$form_data['subject_name']); ?>">
+                                            <input type="text" class="form-control" id="subject_name" name="subject_name" placeholder="Subject name" value="<?php echo set_value('subject_name', $form_data['subject_name']); ?>">
                                             <?php echo form_error('subject_name'); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="subject_type">Subject type <span class="text-red">*</span></label><br/>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="subject_type" value="1" <?php echo set_radio('subject_type', 1, ($form_data['subject_type'] == 1)?TRUE:FALSE) ?>> Theory
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="subject_type" value="2" <?php echo set_radio('subject_type', 2, ($form_data['subject_type'] == 2)?TRUE:FALSE) ?>> Practical
+                                            </label>
+                                            <?php echo form_error('subject_type'); ?>
                                         </div>
                                     </div><!-- /.box-body -->
 

@@ -58,6 +58,11 @@ class Ia_model extends CI_Model {
         
         $this->db->join("tbl_ia_marks ism", "s.user_id = ism.user_id and ism.subject_id = {$subject_id}", "LEFT");
         $this->db->join("tbl_users u", "s.user_id = u.user_id", "LEFT");
+        
+        
+        $this->db->join("tbl_subject sub", "{$subject_id} = sub.subject_id", "LEFT");
+        
+        
         $this->db->order_by("s.roll_number","asc");
         $this->db->select("*, (select count(*) from tbl_attendance ta where ta.subject_id = {$subject_id} and s.semester = {$sem} and ta.student_id = s.student_id and ta.status = 1) as present, (select count(*) from tbl_attendance ta where ta.subject_id = {$subject_id} and s.semester = {$sem} and ta.student_id = s.student_id and ta.status = 0) as absent");
         $query = $this->db->get('tbl_student s');
@@ -93,4 +98,16 @@ class Ia_model extends CI_Model {
         }
     }
 
+    public function get_subject_info($sem, $subject_id) {
+        
+        $condition = array(
+            'subject_id' => $subject_id,
+            'semester' => $sem
+        );
+        
+        $this->db->where($condition);
+        $query = $this->db->get('tbl_subject');
+        return $query->row_array();
+        
+    }
 }

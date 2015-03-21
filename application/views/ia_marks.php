@@ -59,7 +59,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <h4 id="content_heading" ng-show="students.length"><strong id="subject_name"></strong> IA marks of <strong id="selected_sem"></strong> semester</h4>
+                            <h4 id="content_heading" ng-show="students.length"><strong id="subject_name">{{subject_info.subject_name}}</strong> IA marks of <strong id="selected_sem">{{subject_info.semester}}</strong> semester</h4>
                         </div>
                         <div class="box-body" id="content_body" ng-show="students.length">
                             <table class="table">
@@ -70,7 +70,7 @@
                                         <th>Student name</th>
                                         <th class="text-center" style="width: 10%;">IA - 1</th>
                                         <th class="text-center" style="width: 10%;">IA - 2</th>
-                                        <th class="text-center" style="width: 10%;">IA - 3</th>
+                                        <th class="text-center" style="width: 10%;" ng-show="subject_info.subject_type == 1">IA - 3</th>
                                         <th class="text-center" style="width: 10%;">Average</th>
                                         <th class="text-center" style="width: 10%;">Attendance</th>
                                         <th class="text-center" style="width: 10%;">Attendance marks</th>
@@ -89,11 +89,11 @@
                                         <td>
                                             <input class="form-control" type="text" ng-model="student.ia_2" ng-blur="updateMarks(student)"/>
                                         </td>
-                                        <td>
+                                        <td ng-show="subject_info.subject_type == 1">
                                             <input class="form-control" type="text" ng-model="student.ia_3" ng-blur="updateMarks(student)"/>
                                         </td>
                                         <td class="text-center">
-                                            {{student.average = (student.ia_1 | average_marks:student.ia_2:student.ia_3)}}
+                                            {{student.average = (subject_info | average_marks:student.ia_1:student.ia_2:student.ia_3)}}
                                         </td>
                                         <td class="text-center">{{ (student.attendance = (student.present / student.number_taken) * 100) | percentage}}</td>
                                         <td class="text-center">{{ student.attendance_marks = (student.attendance | ia_attendance_marks)}}</td>
@@ -138,16 +138,14 @@
                                                         $http(req)
                                                                 .success(function (response) {
                                                                     $scope.students = response.data;
+                                                                    $scope.subject_info = response.subject_info;
                                                                 });
                                                     }
                                                 };
 
                                                 $scope.updateMarks = function (student_info) {
 
-                                                    var ia_1 = student_info.ia_1;
-                                                    var ia_2 = student_info.ia_2;
-                                                    var ia_3 = student_info.ia_3;
-
+                                                    console.log(student_info);
                                                     $http({
                                                         method: 'POST',
                                                         url: base_url("ia/marks_update"),
@@ -197,19 +195,26 @@
 
 
                                             app.filter('average_marks', ['$filter', function ($filter) {
-                                                    return function (ia_1, ia_2, ia_3) {
+                                                    return function (subject_info, ia_1, ia_2, ia_3) {
+                                                        var average_markss;
+                                                        if (subject_info.subject_type == 1)
+                                                        {
+                                                            ia_1 = (ia_1 === "") ? 0 : ia_1;
+                                                            ia_2 = (ia_2 === "") ? 0 : ia_2;
+                                                            ia_3 = (ia_3 === "") ? 0 : ia_3;
 
-                                                        ia_1 = (ia_1 === "") ? 0 : ia_1;
-                                                        ia_2 = (ia_2 === "") ? 0 : ia_2;
-                                                        ia_3 = (ia_3 === "") ? 0 : ia_3;
+                                                            var marks = [ia_1, ia_2, ia_3];
 
-                                                        var marks = [ia_1, ia_2, ia_3];
+                                                            marks.sort(function (a, b) {
+                                                                return b - a;
+                                                            });
 
-                                                        marks.sort(function (a, b) {
-                                                            return b - a;
-                                                        });
-
-                                                        var average_markss = (Number(marks[0]) + Number(marks[1])) / 2;
+                                                            average_markss = (Number(marks[0]) + Number(marks[1])) / 2;
+                                                        }
+                                                        else
+                                                        {
+                                                            average_markss = (Number(ia_1) + Number(ia_2))/2;
+                                                        }
                                                         return $filter('number')(average_markss);
                                                     };
                                                 }]);
