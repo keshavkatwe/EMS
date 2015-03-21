@@ -84,13 +84,13 @@
                                         <td class="text-center">{{ student.reg_number}}</td>
                                         <td>{{ student.first_name + ' ' + student.last_name}}</td>
                                         <td>
-                                            <input class="form-control" type="text" ng-model="student.ia_1" ng-blur="updateMarks(student)"/>
+                                            <input class="form-control" type="text" ng-model="student.ia_1" ng-blur="updateMarks(student)" maxlength="2"/>
                                         </td>
                                         <td>
-                                            <input class="form-control" type="text" ng-model="student.ia_2" ng-blur="updateMarks(student)"/>
+                                            <input class="form-control" type="text" ng-model="student.ia_2" ng-blur="updateMarks(student)" maxlength="2"/>
                                         </td>
                                         <td ng-show="subject_info.subject_type == 1">
-                                            <input class="form-control" type="text" ng-model="student.ia_3" ng-blur="updateMarks(student)"/>
+                                            <input class="form-control" type="text" ng-model="student.ia_3" ng-blur="updateMarks(student)" maxlength="2"/>
                                         </td>
                                         <td class="text-center">
                                             {{student.average = (subject_info | average_marks:student.ia_1:student.ia_2:student.ia_3)}}
@@ -118,126 +118,126 @@
 
 
 
-        <script src="<?php echo base_url('bower_components/angular/angular.min.js') ?>"></script>
+
 
 
 
         <script>
-                                            var app = angular.module('AMS', []);
-                                            app.controller('myCtrl', function ($scope, $http) {
-                                                $scope.getStudents = function (marks_data) {
-                                                    var req = {
-                                                        method: 'POST',
-                                                        url: base_url("ia/students_ajax"),
-                                                        headers: {'Content-Type': 'application/json'},
-                                                        data: JSON.stringify(marks_data)
-                                                    };
+            var app = angular.module('AMS', []);
+            app.controller('myCtrl', function ($scope, $http) {
+                $scope.getStudents = function (marks_data) {
+                    var req = {
+                        method: 'POST',
+                        url: base_url("ia/students_ajax"),
+                        headers: {'Content-Type': 'application/json'},
+                        data: JSON.stringify(marks_data)
+                    };
 
-                                                    if (marks_data.sem != "" && marks_data.subject_id)
-                                                    {
-                                                        $http(req)
-                                                                .success(function (response) {
-                                                                    $scope.students = response.data;
-                                                                    $scope.subject_info = response.subject_info;
-                                                                });
-                                                    }
-                                                };
+                    if (marks_data.sem != "" && marks_data.subject_id)
+                    {
+                        $http(req)
+                                .success(function (response) {
+                                    $scope.students = response.data;
+                                    $scope.subject_info = response.subject_info;
+                                });
+                    }
+                };
 
-                                                $scope.updateMarks = function (student_info) {
+                $scope.updateMarks = function (student_info) {
 
-                                                    console.log(student_info);
-                                                    $http({
-                                                        method: 'POST',
-                                                        url: base_url("ia/marks_update"),
-                                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                                                        data: JSON.stringify(student_info)
-                                                    })
-                                                            .success(function (response) {
-                                                                show_success('Marks updated successfully');
-                                                            });
+                    console.log(student_info);
+                    $http({
+                        method: 'POST',
+                        url: base_url("ia/marks_update"),
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        data: JSON.stringify(student_info)
+                    })
+                            .success(function (response) {
+                                show_success('Marks updated successfully');
+                            });
 
-                                                };
-
-
-                                                $scope.get_subjects = function (sem) {
-
-                                                    var req = {
-                                                        method: 'POST',
-                                                        url: base_url("ia/subjects_ajax"),
-                                                        headers: {'Content-Type': 'application/json'},
-                                                        data: JSON.stringify(sem)
-                                                    };
-                                                    $http(req)
-                                                            .success(function (response) {
-
-                                                                if (response.data.length) {
-                                                                    $scope.subjects = response.data;
-                                                                }
-                                                                else
-                                                                {
-                                                                    $scope.subjects = [{
-                                                                            subject_id: "",
-                                                                            subject_name: "--No subjects--"
-                                                                        }];
-                                                                }
-                                                                $scope.marks.subject_id = $scope.subjects[0].subject_id;
-                                                            });
-
-                                                };
-
-                                            });
-
-                                            app.filter('percentage', ['$filter', function ($filter) {
-                                                    return function (input) {
-                                                        return $filter('number')(Math.ceil(input)) + '%';
-                                                    };
-                                                }]);
+                };
 
 
-                                            app.filter('average_marks', ['$filter', function ($filter) {
-                                                    return function (subject_info, ia_1, ia_2, ia_3) {
-                                                        var average_markss;
-                                                        if (subject_info.subject_type == 1)
-                                                        {
-                                                            ia_1 = (ia_1 === "") ? 0 : ia_1;
-                                                            ia_2 = (ia_2 === "") ? 0 : ia_2;
-                                                            ia_3 = (ia_3 === "") ? 0 : ia_3;
+                $scope.get_subjects = function (sem) {
 
-                                                            var marks = [ia_1, ia_2, ia_3];
+                    var req = {
+                        method: 'POST',
+                        url: base_url("ia/subjects_ajax"),
+                        headers: {'Content-Type': 'application/json'},
+                        data: JSON.stringify(sem)
+                    };
+                    $http(req)
+                            .success(function (response) {
 
-                                                            marks.sort(function (a, b) {
-                                                                return b - a;
-                                                            });
+                                if (response.data.length) {
+                                    $scope.subjects = response.data;
+                                }
+                                else
+                                {
+                                    $scope.subjects = [{
+                                            subject_id: "",
+                                            subject_name: "--No subjects--"
+                                        }];
+                                }
+                                $scope.marks.subject_id = $scope.subjects[0].subject_id;
+                            });
 
-                                                            average_markss = (Number(marks[0]) + Number(marks[1])) / 2;
-                                                        }
-                                                        else
-                                                        {
-                                                            average_markss = (Number(ia_1) + Number(ia_2))/2;
-                                                        }
-                                                        return $filter('number')(average_markss);
-                                                    };
-                                                }]);
+                };
+
+            });
+
+            app.filter('percentage', ['$filter', function ($filter) {
+                    return function (input) {
+                        return $filter('number')(Math.ceil(input)) + '%';
+                    };
+                }]);
 
 
-                                            app.filter('ia_attendance_marks', ['$filter', function ($filter) {
-                                                    return function (input, decimals) {
+            app.filter('average_marks', ['$filter', function ($filter) {
+                    return function (subject_info, ia_1, ia_2, ia_3) {
+                        var average_markss;
+                        if (subject_info.subject_type == 1)
+                        {
+                            ia_1 = (ia_1 === "") ? 0 : ia_1;
+                            ia_2 = (ia_2 === "") ? 0 : ia_2;
+                            ia_3 = (ia_3 === "") ? 0 : ia_3;
 
-                                                        var attendance_marks = 0;
-                                                        if (input > 95)
-                                                            attendance_marks = 5;
-                                                        else if (input > 85 && input <= 95)
-                                                            attendance_marks = 4;
-                                                        else if (input > 75 && input <= 85)
-                                                            attendance_marks = 3;
-                                                        else if (input > 60 && input <= 75)
-                                                            attendance_marks = 2;
-                                                        else if (input <= 60)
-                                                            attendance_marks = 0;
+                            var marks = [ia_1, ia_2, ia_3];
 
-                                                        return $filter('number')(attendance_marks);
-                                                    };
-                                                }]);
+                            marks.sort(function (a, b) {
+                                return b - a;
+                            });
+
+                            average_markss = (Number(marks[0]) + Number(marks[1])) / 2;
+                        }
+                        else
+                        {
+                            average_markss = (Number(ia_1) + Number(ia_2)) / 2;
+                        }
+                        return $filter('number')(average_markss);
+                    };
+                }]);
+
+
+            app.filter('ia_attendance_marks', ['$filter', function ($filter) {
+                    return function (input, decimals) {
+
+                        var attendance_marks = 0;
+                        if (input > 95)
+                            attendance_marks = 5;
+                        else if (input > 85 && input <= 95)
+                            attendance_marks = 4;
+                        else if (input > 75 && input <= 85)
+                            attendance_marks = 3;
+                        else if (input > 60 && input <= 75)
+                            attendance_marks = 2;
+                        else if (input <= 60)
+                            attendance_marks = 0;
+
+                        return $filter('number')(attendance_marks);
+                    };
+                }]);
 
 
         </script>

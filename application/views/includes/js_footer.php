@@ -31,6 +31,7 @@ $info = $this->session->flashdata("show_info");
 <script src="<?php echo base_url('dist/js/dataTables.bootstrap.js') ?>"></script>
 
 <script src="<?php echo base_url('bower_components/jquery-validation/dist/jquery.validate.min.js') ?>"></script>
+<script src="<?php echo base_url('bower_components/angular/angular.min.js') ?>"></script>
 <script>
     // override jquery validate plugin defaults
     $.validator.setDefaults({
