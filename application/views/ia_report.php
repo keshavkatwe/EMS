@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title><?php echo $this->config->item('site_name') ?> | Attendance Report</title>
+        <title><?php echo $this->config->item('site_name') ?> | IA Report</title>
 
         <?php $this->load->view('includes/css_header') ?>
     </head>
@@ -18,7 +18,7 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Attendance Report
+                        IA Report
                     </h1>
                 </section>
 
@@ -34,7 +34,7 @@
                                 $i = 0;
                                 foreach ($departments as $dept) {
                                     echo '<li role="presentation">
-                                            <a href="#summary_info" onclick="getAttendanceInfo(' . $dept['department_id'] . ');" aria-controls="home" role="tab" data-toggle="tab">' . $dept['department_name'] . '</a>
+                                            <a href="#summary_info" onclick="getIAInfo(' . $dept['department_id'] . ');" aria-controls="home" role="tab" data-toggle="tab">' . $dept['department_name'] . '</a>
                                         </li>';
                                     $i++;
                                 }
@@ -43,13 +43,21 @@
                             <div class="tab-content">
                                 <br>
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <label>Semester</label>
                                         <select class="form-control" name="semester" id="semester">
                                             <?php echo get_semester(set_value('semester', $form_data['semester'])); ?>
                                         </select>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
+                                        <label>IA</label>
+                                        <select class="form-control" name="ia_type" id="ia_type">
+                                            <option value="1">IA - I</option>
+                                            <option value="2">IA - II</option>
+                                            <option value="3">IA - III</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
                                         <label>Search type</label>
                                         <select class="form-control" name="search_type" id="search_type">
                                             <option value="1">Roll Number</option>
@@ -57,11 +65,12 @@
                                             <option value="3">Reg Number</option>
                                         </select>
                                     </div>
+                                    
                                     <div class="col-md-3">
                                         <label>Keyword</label>
                                         <input type="text" name="keyword" id="keyword" placeholder="Keyword" class="form-control"/>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <button class="btn btn-primary" style="margin-top: 25px" onclick="fetchReports();"><i class="fa fa-search"></i> Get Report</button>
                                     </div>
                                 </div>
@@ -84,43 +93,44 @@
 
         <?php $this->load->view('includes/js_footer') ?>
         <script>
-            
+
             var deptartment_id = <?php echo $departments[0]['department_id']; ?>;
-            
+
             $(function () {
                 $('#DeptTab a:first').tab('show')
             })
 
             $(document).ready(function () {
-                getAttendanceInfo(deptartment_id);
+                getIAInfo(deptartment_id);
             });
 
 
-            function getAttendanceInfo(dept_id) {
-                deptartment_id =dept_id;
-              $("#semester").val("1");  
-              $("#search_type").val("1");
-              $("#keyword").val("");
-                 var data = {
-                     dept_id: dept_id,
-                     semester: $("#semester").val()
-                 };
-                 $("#attendance_info").html('<div class="text-center"><i class="fa fa-spinner fa-spin fa-2x"></i></div>');
-                 $.post(base_url("Attendance/getDeptReport"), data, function (result) {
-                     $("#attendance_info").html(result);
-                 });
+            function getIAInfo(dept_id) {
+                deptartment_id = dept_id;
+                $("#semester").val("1");
+                $("#search_type").val("1");
+                $("#keyword").val("");
+                var data = {
+                    dept_id: dept_id,
+                    semester: $("#semester").val()
+                };
+                $("#attendance_info").html('<div class="text-center"><i class="fa fa-spinner fa-spin fa-2x"></i></div>');
+                $.post(base_url("report/getIAReport"), data, function (result) {
+                    $("#attendance_info").html(result);
+                });
             }
-            
-            
-            function fetchReports(){
+
+
+            function fetchReports() {
                 var data = {
                     dept_id: deptartment_id,
                     semester: $("#semester").val(),
                     search_type: $("#search_type").val(),
-                    keywork: $("#keyword").val()
+                    ia_type: $("#ia_type").val(),
+                    keyword: $("#keyword").val()
                 };
                 $("#attendance_info").html('<div class="text-center"><i class="fa fa-spinner fa-spin fa-2x"></i></div>');
-                $.post(base_url("Attendance/getDeptReport"), data, function (result) {
+                $.post(base_url("report/getIAReport"), data, function (result) {
                     $("#attendance_info").html(result);
                 });
             }
