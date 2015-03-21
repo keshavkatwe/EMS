@@ -5,7 +5,7 @@
  *
  * @author Happy
  */
-class attendance_model extends CI_Model {
+class Attendance_model extends CI_Model {
 
     public function get_faculty_subjects_m($sem) {
 
