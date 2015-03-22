@@ -28,6 +28,9 @@
                     <!-- Default box -->
                     <div class="box">
                         <form method="post" action="">
+                            
+                            
+                            
                             <div class="box-header with-border">
 
                                 <div class="row">
@@ -56,7 +59,10 @@
                                 </div>
 
                             </div>
-                            <div class="box-body">
+                            
+                            <input type="hidden" name="semester_selected" value="{{class_info.semester}}"/>
+                            
+                            <div class="box-body" ng-show="students.length">
 
                                 <table class="table">
                                     <thead>
@@ -65,7 +71,7 @@
                                             <th class="text-center" style="width: 8%;">Roll no</th>
                                             <th class="text-center" style="width: 10%;">Reg. no</th>
                                             <th>Name</th>
-                                            <th class="text-center" style="width: 13%;">Promote to sem {{class_info.semester * 1 + 1}}</th>
+                                            <th ng-show="semester_show === '2' || semester_show === '4'" class="text-center" style="width: 13%;">Promote to sem {{class_info.semester * 1 + 1}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -74,14 +80,14 @@
                                             <td class="text-center">{{student.roll_number}}</td>
                                             <td class="text-center">{{student.reg_number}}</td>
                                             <td>{{student.first_name + ' ' + student.last_name}}</td>
-                                            <td class="text-center">
+                                            <td class="text-center" ng-show="semester_show === '2' || semester_show === '4'">
                                                 <label class="radio-inline">
                                                     <input type="radio" name="student_promote[{{$index}}]" value="yes" ng-checked="true" /> Yes
                                                 </label>
                                                 <label class="radio-inline">
                                                     <input type="radio" name="student_promote[{{$index}}]" value="no" /> No
                                                 </label>
-                                                <input type="hidden" name="student_id[{{$index}}]" value="{{student.subject_id}}"/>
+                                                <input type="hidden" name="student_id[{{$index}}]" value="{{student.student_id}}"/>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -89,8 +95,8 @@
 
 
                             </div><!-- /.box-body -->
-                            <div class="box-footer text-right">
-                                <button class="btn btn-danger" type="submit">Promote all</button>
+                            <div class="box-footer text-right" ng-show="students.length && semester_show !== '6'">
+                                <button class="btn btn-danger" type="submit">Promote</button>
                             </div><!-- /.box-footer-->
 
 
@@ -109,7 +115,13 @@
     <script>
         var app = angular.module('AMS', []);
         app.controller('myCtrl', function ($scope, $http) {
+            
+            
+            
             $scope.getStudents = function (class_info) {
+                
+                $scope.semester_show = class_info.semester;
+                
                 var req = {
                     method: 'POST',
                     url: base_url("promote/get_students"),

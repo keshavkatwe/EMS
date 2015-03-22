@@ -30,4 +30,21 @@ class Promote_model extends CI_Model{
         return $query->result_array();
     }
     
+    
+    public function promote_students($active_students, $inactive_students, $sem) {
+        
+        if(count($active_students))
+        {
+            $this->db->where_in('student_id', $active_students);
+            $this->db->update('tbl_student', array('is_active' => TRUE, 'semester' => ($sem + 1)));
+        }
+        
+        if(count($inactive_students))
+        {
+            $this->db->where_in('student_id', $inactive_students);
+            $this->db->update('tbl_student', array('is_active' => FALSE));
+        }
+        return TRUE;
+    }
+    
 }

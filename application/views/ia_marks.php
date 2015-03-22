@@ -84,13 +84,13 @@
                                         <td class="text-center">{{ student.reg_number}}</td>
                                         <td>{{ student.first_name + ' ' + student.last_name}}</td>
                                         <td>
-                                            <input class="form-control" type="text" ng-model="student.ia_1" ng-blur="updateMarks(student)" maxlength="2"/>
+                                            <input class="form-control numericOnly" type="text" ng-model="student.ia_1" ng-blur="updateMarks(student)" />
                                         </td>
                                         <td>
-                                            <input class="form-control" type="text" ng-model="student.ia_2" ng-blur="updateMarks(student)" maxlength="2"/>
+                                            <input class="form-control numericOnly" type="text" ng-model="student.ia_2" ng-blur="updateMarks(student)" />
                                         </td>
                                         <td ng-show="subject_info.subject_type == 1">
-                                            <input class="form-control" type="text" ng-model="student.ia_3" ng-blur="updateMarks(student)" maxlength="2"/>
+                                            <input class="form-control numericOnly" type="text" ng-model="student.ia_3" ng-blur="updateMarks(student)" />
                                         </td>
                                         <td class="text-center">
                                             {{student.average = (subject_info | average_marks:student.ia_1:student.ia_2:student.ia_3)}}
@@ -123,6 +123,8 @@
 
 
         <script>
+
+
             var app = angular.module('AMS', []);
             app.controller('myCtrl', function ($scope, $http) {
                 $scope.getStudents = function (marks_data) {
@@ -145,17 +147,33 @@
 
                 $scope.updateMarks = function (student_info) {
 
-                    console.log(student_info);
-                    $http({
-                        method: 'POST',
-                        url: base_url("ia/marks_update"),
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                        data: JSON.stringify(student_info)
-                    })
-                            .success(function (response) {
-                                show_success('Marks updated successfully');
-                            });
-
+                    if (!isNumber(student_info.ia_1) && student_info.ia_1 > 30)
+                    {
+                        show_error('Invalid marks');
+                        student_info.ia_1 = 0;
+                    }
+                    else if (Number(student_info.ia_2) > 30)
+                    {
+                        show_error('Invalid marks');
+                        student_info.ia_2 = 0;
+                    }
+                    else if (Number(student_info.ia_3) > 30)
+                    {
+                        show_error('Invalid marks');
+                        student_info.ia_3 = 0;
+                    }
+                    else
+                    {
+                        $http({
+                            method: 'POST',
+                            url: base_url("ia/marks_update"),
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                            data: JSON.stringify(student_info)
+                        })
+                                .success(function (response) {
+                                    show_success('Marks updated successfully');
+                                });
+                    }
                 };
 
 
@@ -239,6 +257,9 @@
                     };
                 }]);
 
+            function isNumber(n) {
+                return !isNaN(parseFloat(n)) && isFinite(n);
+            }
 
         </script>
     </body>
