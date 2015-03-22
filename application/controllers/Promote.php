@@ -50,7 +50,12 @@ class Promote extends Custom_controller {
             }
             
         } else {
-            $this->load->view('promote');
+            
+            $data = array(
+                'current_page' => 'promote'
+            );
+            
+            $this->load->view('promote', $data);
         }
     }
 
