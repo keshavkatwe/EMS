@@ -56,7 +56,7 @@
                                         <td><?php echo $faculty['sem'] ?></td>
                                         <td>
                                             <a class="btn btn-primary btn-xs" href="<?php echo base_url('faculties/edit/'.$faculty['user_id']) ?>"><i class="fa fa-pencil"></i> Edit</a>
-                                            <a class="btn btn-danger btn-xs" href="<?php echo base_url('faculties/delete/'.$faculty['user_id']) ?>"><i class="fa fa-trash-o"></i> Delete</a>
+                                            <button class="btn btn-danger btn-xs" onclick="delete_faculty(<?php echo $faculty['user_id']?>)"><i class="fa fa-trash-o"></i> Delete</button>
                                         </td>
                                     </tr>
                                     <?php } ?>
@@ -81,7 +81,15 @@
                 $('#example').dataTable();
             });
             
-            
+            function delete_faculty(id)
+            {
+                bootbox.confirm("Are you sure, you want to delete?", function (result) {
+                    if(result == true)
+                    {
+                        window.location.assign(base_url('faculties/delete/'+id));
+                    }
+                });
+            }
             
         </script>
     </body>

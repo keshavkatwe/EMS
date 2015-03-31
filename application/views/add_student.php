@@ -62,25 +62,25 @@
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group">
-                                            <label>First name</label>
+                                            <label>First name <span class="text-red">*</span></label>
                                             <input type="text" class="form-control" name="first_name" id="first_name" value="<?php echo set_value('first_name',$students_array['first_name']) ?>"/>
                                             <?php echo form_error('first_name'); ?>
                                         </div>
                                         <div class="form-group">
-                                            <label>Email id</label>
+                                            <label>Email id <span class="text-red">*</span></label>
                                             <input type="text" class="form-control" name="email_id" id="email_id" value="<?php echo set_value('email_id',$students_array['email_id']) ?>"/>
                                             <?php echo form_error('email_id'); ?>
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Parent/Guardian name</label>
+                                            <label>Parent/Guardian name <span class="text-red">*</span></label>
                                             <input type="text" class="form-control" name="parent_name" id="parent_name" value="<?php echo set_value('parent_name',$students_array['parent_name']) ?>"/>
                                             <?php echo form_error('parent_name'); ?>
                                         </div>
 
 
                                         <div class="form-group">
-                                            <label>Department</label>
+                                            <label>Department <span class="text-red">*</span></label>
                                             <select class="form-control" name="department" id="department">
                                                 <option value="">--Choose department--</option>
                                                 <?php echo get_departments(set_value('department', $students_array['department'])); ?>
@@ -88,7 +88,7 @@
                                             <?php echo form_error('department'); ?>
                                         </div>
                                         <div class="form-group">
-                                            <label>Semester</label>
+                                            <label>Semester <span class="text-red">*</span></label>
                                             <select class="form-control" name="semester" id="semester">
                                                 <option value="">--Choose semester--</option>
                                                 <?php echo get_semester(set_value('semester', $students_array['semester'])); ?>
@@ -96,7 +96,7 @@
                                             <?php echo form_error('semester'); ?>
                                         </div>
                                         <div class="form-group">
-                                            <label>Address</label>
+                                            <label>Address <span class="text-red">*</span></label>
                                             <textarea type="text" class="form-control" name="address" id="address"><?php echo set_value('address',$students_array['address']) ?></textarea>
                                             <?php echo form_error('address'); ?>
                                         </div>
@@ -109,7 +109,7 @@
                                         </div>
                                         
                                         <div class="form-group" style="margin-top: 26px;">
-                                            <label>Gender</label>
+                                            <label>Gender <span class="text-red">*</span></label>
                                             <div>
                                                 <label class="radio-inline">
                                                     <input type="radio" name="gender" value="male" class="flat-red" <?php echo set_radio('gender', 'male',(($students_array['gender'] == 'male')?TRUE:FALSE)) ?>> Male
@@ -123,7 +123,7 @@
                                         
                                         
                                         <div class="form-group">
-                                            <label>Parent/Guardian mobile number</label>
+                                            <label>Parent/Guardian mobile number <span class="text-red">*</span></label>
                                             <input type="text" class="form-control" name="parent_number" id="parent_number" value="<?php echo set_value('parent_number',$students_array['parent_number']) ?>"/>
                                             <?php echo form_error('parent_number'); ?>
                                         </div>
@@ -135,12 +135,12 @@
                                             <?php echo form_error('mobile'); ?>
                                         </div>
                                         <div class="form-group">
-                                            <label>Register number</label>
+                                            <label>Register number <span class="text-red">*</span></label>
                                             <input type="text" class="form-control" name="reg_number" id="reg_number" value="<?php echo set_value('reg_number',$students_array['reg_number']) ?>"/>
                                             <?php echo form_error('reg_number'); ?>
                                         </div>
                                         <div class="form-group">
-                                            <label>Roll number</label>
+                                            <label>Roll number <span class="text-red">*</span></label>
                                             <input type="text" class="form-control" name="roll_number" id="roll_number" value="<?php echo set_value('roll_number',$students_array['roll_number']) ?>"/>
                                             <?php echo form_error('roll_number'); ?>
                                         </div>

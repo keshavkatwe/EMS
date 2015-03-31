@@ -68,7 +68,7 @@ class Students extends Custom_controller {
             array(
                 'field' => 'mobile',
                 'label' => 'Mobile number',
-                'rules' => 'required|trim',
+                'rules' => 'trim',
             ),
             array(
                 'field' => 'semester',
@@ -191,7 +191,7 @@ class Students extends Custom_controller {
             array(
                 'field' => 'last_name',
                 'label' => 'Last name',
-                'rules' => 'required|trim',
+                'rules' => 'trim',
             ),
             array(
                 'field' => 'email_id',
@@ -221,7 +221,7 @@ class Students extends Custom_controller {
             array(
                 'field' => 'mobile',
                 'label' => 'Mobile number',
-                'rules' => 'required|trim',
+                'rules' => 'trim',
             ),
             array(
                 'field' => 'semester',

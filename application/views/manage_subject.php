@@ -51,8 +51,8 @@
                                                     <td>{$sub['semester']}</td>
                                                     <td>{$sub['department_name']}</td>
                                                     <td>
-                                                        <a href='{$edit_url}' class='btn btn-success btn-xs'>Edit</a>
-                                                        <a href='{$delete_url}' class='btn btn-danger btn-xs'>Delete</a>
+                                                        <a href='{$edit_url}' class='btn btn-primary btn-xs'><i class='fa fa-pencil'></i> Edit</a>
+                                                        <button class='btn btn-danger btn-xs' onclick='delete_subject({$sub['subject_id']})'><i class='fa fa-trash-o'></i> Delete</button>
                                                     </td>    
                                                 </tr>";
                                         $i++;               
@@ -75,6 +75,17 @@
                 $("#example1").dataTable();
 
             });
+            
+            
+            function delete_subject(id)
+            {
+                bootbox.confirm("Are you sure, you want to delete?", function (result) {
+                    if(result == true)
+                    {
+                        window.location.assign(base_url('subject/delete_subject/'+id));
+                    }
+                });
+            }
         </script>
     </body>
 

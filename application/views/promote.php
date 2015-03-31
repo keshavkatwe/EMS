@@ -67,7 +67,6 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th class="text-center" style="width: 5%;">SL.NO</th>
                                             <th class="text-center" style="width: 8%;">Roll no</th>
                                             <th class="text-center" style="width: 10%;">Reg. no</th>
                                             <th>Name</th>
@@ -76,7 +75,6 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="student in students">
-                                            <td class="text-center">{{$index + 1}}</td>
                                             <td class="text-center">{{student.roll_number}}</td>
                                             <td class="text-center">{{student.reg_number}}</td>
                                             <td>{{student.first_name + ' ' + student.last_name}}</td>

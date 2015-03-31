@@ -29,7 +29,7 @@
                     <div class="box">
                         <div class="box-body">
 
-                            
+
                             <table id="example" class="display" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
@@ -41,26 +41,27 @@
                                         <th>Roll number</th>
                                         <th>Register number</th>
                                         <th>Action</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php 
+                                    <?php
                                     $i = 1;
-                                    foreach ($students_list as $student) { ?>
-                                    <tr>
-                                        <td class="text-center"><?php echo $i++; ?></td>
-                                        <td><?php echo $student['first_name'].' '.$student['last_name'] ?></td>
-                                        <td><?php echo $student['email_id'] ?></td>
-                                        <td><?php echo $student['department_name'] ?></td>
-                                        <td class="text-center"><?php echo $student['semester'] ?></td>
-                                        <td class="text-center"><?php echo $student['roll_number'] ?></td>
-                                        <td class="text-center"><?php echo $student['reg_number'] ?></td>
-                                        <td>
-                                            <a class="btn btn-primary btn-xs" href="<?php echo base_url('students/edit/'.$student['user_id']) ?>"><i class="fa fa-pencil"></i> Edit</a>
-                                            <a class="btn btn-danger btn-xs" href="<?php echo base_url('students/delete/'.$student['user_id']) ?>"><i class="fa fa-trash-o"></i> Delete</a>
-                                        </td>
-                                    </tr>
+                                    foreach ($students_list as $student) {
+                                        ?>
+                                        <tr>
+                                            <td class="text-center"><?php echo $i++; ?></td>
+                                            <td><?php echo $student['first_name'] . ' ' . $student['last_name'] ?></td>
+                                            <td><?php echo $student['email_id'] ?></td>
+                                            <td><?php echo $student['department_name'] ?></td>
+                                            <td class="text-center"><?php echo $student['semester'] ?></td>
+                                            <td class="text-center"><?php echo $student['roll_number'] ?></td>
+                                            <td class="text-center"><?php echo $student['reg_number'] ?></td>
+                                            <td>
+                                                <a class="btn btn-primary btn-xs" href="<?php echo base_url('students/edit/' . $student['user_id']) ?>"><i class="fa fa-pencil"></i> Edit</a>
+                                                <button class="btn btn-danger btn-xs" onclick="delete_student(<?php echo $student['user_id']?>)"><i class="fa fa-trash-o"></i> Delete</button>
+                                            </td>
+                                        </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>
@@ -82,9 +83,17 @@
             $(document).ready(function () {
                 $('#example').dataTable();
             });
-            
-            
-            
+
+            function delete_student(id)
+            {
+                bootbox.confirm("Are you sure, you want to delete?", function (result) {
+                    if(result == true)
+                    {
+                        window.location.assign(base_url('students/delete/'+id));
+                    }
+                });
+            }
+
         </script>
     </body>
 

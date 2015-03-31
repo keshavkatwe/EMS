@@ -147,17 +147,21 @@
 
                 $scope.updateMarks = function (student_info) {
 
-                    if (!isNumber(student_info.ia_1) && student_info.ia_1 > 30)
+                    var max_marks;
+                    
+                    max_marks = 20;
+                    
+                    if (!isNumber(student_info.ia_1) && student_info.ia_1 > max_marks)
                     {
                         show_error('Invalid marks');
                         student_info.ia_1 = 0;
                     }
-                    else if (Number(student_info.ia_2) > 30)
+                    else if (Number(student_info.ia_2) > max_marks)
                     {
                         show_error('Invalid marks');
                         student_info.ia_2 = 0;
                     }
-                    else if (Number(student_info.ia_3) > 30)
+                    else if (Number(student_info.ia_3) > max_marks)
                     {
                         show_error('Invalid marks');
                         student_info.ia_3 = 0;
