@@ -84,13 +84,13 @@
                                         <td class="text-center">{{ student.reg_number}}</td>
                                         <td>{{ student.first_name + ' ' + student.last_name}}</td>
                                         <td>
-                                            <input class="form-control numericOnly" type="text" ng-model="student.ia_1" ng-blur="updateMarks(student)" />
+                                            <input class="form-control numericOnly" type="text" ng-model="student.ia_1" ng-blur="updateMarks(student, subject_info)" />
                                         </td>
                                         <td>
-                                            <input class="form-control numericOnly" type="text" ng-model="student.ia_2" ng-blur="updateMarks(student)" />
+                                            <input class="form-control numericOnly" type="text" ng-model="student.ia_2" ng-blur="updateMarks(student, subject_info)" />
                                         </td>
                                         <td ng-show="subject_info.subject_type == 1">
-                                            <input class="form-control numericOnly" type="text" ng-model="student.ia_3" ng-blur="updateMarks(student)" />
+                                            <input class="form-control numericOnly" type="text" ng-model="student.ia_3" ng-blur="updateMarks(student, subject_info)" />
                                         </td>
                                         <td class="text-center">
                                             {{student.average = (subject_info | average_marks:student.ia_1:student.ia_2:student.ia_3)}}
@@ -145,23 +145,29 @@
                     }
                 };
 
-                $scope.updateMarks = function (student_info) {
+                $scope.updateMarks = function (student_info, subject_info) {
 
                     var max_marks;
-                    
-                    max_marks = 20;
-                    
-                    if (!isNumber(student_info.ia_1) && student_info.ia_1 > max_marks)
+                    if (subject_info.subject_type == 1)
+                    {
+                        max_marks = 20;
+                    }
+                    else
+                    {
+                        max_marks = 10;
+                    }
+
+                    if (!isNumber(student_info.ia_1) || Number(student_info.ia_1) < 0 || Number(student_info.ia_1) > max_marks)
                     {
                         show_error('Invalid marks');
                         student_info.ia_1 = 0;
                     }
-                    else if (Number(student_info.ia_2) > max_marks)
+                    else if (!isNumber(student_info.ia_2) || Number(student_info.ia_2) < 0 || Number(student_info.ia_2) > max_marks)
                     {
                         show_error('Invalid marks');
                         student_info.ia_2 = 0;
                     }
-                    else if (Number(student_info.ia_3) > max_marks)
+                    else if (!isNumber(student_info.ia_3) || Number(student_info.ia_3) < 0 || Number(student_info.ia_3) > max_marks)
                     {
                         show_error('Invalid marks');
                         student_info.ia_3 = 0;
