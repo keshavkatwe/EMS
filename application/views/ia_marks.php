@@ -70,7 +70,7 @@
                                         <th>Student name</th>
                                         <th class="text-center" style="width: 10%;">IA - 1</th>
                                         <th class="text-center" style="width: 10%;">IA - 2</th>
-                                        <th class="text-center" style="width: 10%;" ng-show="subject_info.subject_type == 1">IA - 3</th>
+                                        <th class="text-center" style="width: 10%;"><span ng-show="subject_info.subject_type == 1">IA - 3</span><span ng-show="subject_info.subject_type != 1">Record marks</span></th>
                                         <th class="text-center" style="width: 10%;">Average</th>
                                         <th class="text-center" style="width: 10%;">Attendance</th>
                                         <th class="text-center" style="width: 10%;">Attendance marks</th>
@@ -89,15 +89,15 @@
                                         <td>
                                             <input class="form-control numericOnly" type="text" ng-model="student.ia_2" ng-blur="updateMarks(student, subject_info)" />
                                         </td>
-                                        <td ng-show="subject_info.subject_type == 1">
+                                        <td>
                                             <input class="form-control numericOnly" type="text" ng-model="student.ia_3" ng-blur="updateMarks(student, subject_info)" />
                                         </td>
                                         <td class="text-center">
-                                            {{student.average = (subject_info | average_marks:student.ia_1:student.ia_2:student.ia_3)}}
+                                            {{(student.average = (subject_info | average_marks:student.ia_1:student.ia_2:student.ia_3)|round)}}
                                         </td>
                                         <td class="text-center">{{ (student.attendance = (student.present / student.number_taken) * 100) | percentage}}</td>
                                         <td class="text-center">{{ student.attendance_marks = (student.attendance | ia_attendance_marks)}}</td>
-                                        <td class="text-center">{{ student.attendance_marks * 1 + student.average * 1}}</td>
+                                        <td class="text-center">{{ (student.attendance_marks * 1 + student.average * 1)|round}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -217,7 +217,7 @@
 
             app.filter('percentage', ['$filter', function ($filter) {
                     return function (input) {
-                        return $filter('number')(Math.ceil(input)) + '%';
+                        return $filter('number')(Math.round(input)) + '%';
                     };
                 }]);
 
@@ -241,26 +241,31 @@
                         }
                         else
                         {
-                            average_markss = (Number(ia_1) + Number(ia_2)) / 2;
+                            average_markss = (Math.max(Number(ia_1), Number(ia_2))) + Number(ia_3);
                         }
                         return $filter('number')(average_markss);
                     };
                 }]);
 
-
+            app.filter('round', function () {
+                return function (input) {
+                    return Math.round(input);
+                };
+            });
+            
             app.filter('ia_attendance_marks', ['$filter', function ($filter) {
                     return function (input, decimals) {
 
                         var attendance_marks = 0;
-                        if (input > 95)
+                        if (input >= 95)
                             attendance_marks = 5;
-                        else if (input > 85 && input <= 95)
+                        else if (input >= 85 && input < 95)
                             attendance_marks = 4;
-                        else if (input > 75 && input <= 85)
+                        else if (input >= 75 && input < 85)
                             attendance_marks = 3;
-                        else if (input > 60 && input <= 75)
+                        else if (input >= 60 && input < 75)
                             attendance_marks = 2;
-                        else if (input <= 60)
+                        else if (input < 60)
                             attendance_marks = 0;
 
                         return $filter('number')(attendance_marks);

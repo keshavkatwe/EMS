@@ -136,7 +136,8 @@ class Attendance extends Custom_controller {
          $data = array(
             'current_tab' => 'report_tab',
             'current_page' => 'attendance_report',
-            'departments' => $this->Subject_model->getDepartments()
+            'departments' => $this->Subject_model->getDepartments(),
+            'sems'=> $this->attendance_model->get_faculty_semesters_m()
         );
         $this->load->view("attendance_report", $data);
     }
@@ -146,7 +147,8 @@ class Attendance extends Custom_controller {
             'dept_id' => $this->input->post('dept_id'),
             'semester' => $this->input->post('semester'),
             'search_type' => $this->input->post('search_type'),
-            'keyword' => $this->input->post('keywork')
+            'keyword' => $this->input->post('keywork'),
+            'subject_id' => $this->input->post('subject_id')
         );
         
         $return_data = $this->attendance_model->getDeptReportData($filter_data);
@@ -159,6 +161,27 @@ class Attendance extends Custom_controller {
         
         echo $this->load->view("subview/attendance_report",$data_report, TRUE);
         
+    }
+    
+    public function report_subjects_ajax() {
+        $is_success = TRUE;
+        $response_data = "";
+
+
+        $sem = $this->input->post('sem');
+        $dept_id = $this->input->post('dept_id');
+
+        $subjects = $this->attendance_model->report_get_faculty_subjects_m($sem,$dept_id);
+
+
+        $response_data = $subjects;
+
+        $json_data = array(
+            'success' => $is_success,
+            'data' => $response_data
+        );
+
+        echo json_encode($json_data);
     }
 
     

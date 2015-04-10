@@ -23,8 +23,6 @@ $info = $this->session->flashdata("show_info");
 <script src="<?php echo base_url('bower_components/toastr/toastr.min.js') ?>"></script>
 <script src="<?php echo base_url('dist/js/custom_js.js') ?>"></script>
 
-<script src="<?php echo base_url('bower_components/bootbox/bootbox.js') ?>"></script>
-
 <script src="<?php echo base_url('bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js') ?>"></script>
 
 <script src="<?php echo base_url('bower_components/iCheck/icheck.min.js') ?>"></script>
@@ -53,4 +51,15 @@ $info = $this->session->flashdata("show_info");
             }
         }
     });
+
+
+    function print() {
+        var prtContent = document.getElementById("doc_print");
+        var WinPrint = window.open('', '', 'left=0,top=0,width=1000,height=1000,toolbar=0,scrollbars=0,status=0');
+        WinPrint.document.write(prtContent.innerHTML);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+    }
 </script>

@@ -113,19 +113,31 @@ class Attendance_model extends CI_Model {
             $this->db->where("s.roll_number", $filter_data['keyword']);
         } else if ($filter_data['search_type'] == 2 and $filter_data['keyword'] != "") {
             $this->db->like('u.first_name', $filter_data['keyword']);
-            $this->db->or_like('u.last_name', $filter_data['keyword']); 
+            $this->db->or_like('u.last_name', $filter_data['keyword']);
         } else if ($filter_data['search_type'] == 3 and $filter_data['keyword'] != "") {
             $this->db->where("s.reg_number", $filter_data['keyword']);
         }
         $this->db->order_by("s.roll_number", "asc");
         $student_query = $this->db->get();
 
-        
+
         $this->db->order_by("subject_type", "asc");
-        $subject_query = $this->db->get_where('tbl_subject', array(
+
+
+        $subject_filter = array(
             'semester' => $filter_data['semester'],
             'department' => $filter_data['dept_id']
-        ));
+        );
+
+        if($this->session->role_id!=1){
+            $subject_filter['subject_id'] = $filter_data['subject_id'];
+        }
+        else{
+            if(isset($filter_data['subject_id']) and $filter_data['subject_id']!=""){
+            $subject_filter['subject_id'] = $filter_data['subject_id'];
+            }
+        }
+        $subject_query = $this->db->get_where('tbl_subject', $subject_filter);
 
         $student_list = $student_query->result_array();
         $subject_list = $subject_query->result_array();
@@ -173,6 +185,34 @@ class Attendance_model extends CI_Model {
         );
 
         return $return_data;
+    }
+
+    public function report_get_faculty_subjects_m($sem,$dept_id) {
+
+        $faculty_info = $this->faculty_info($this->session->user_id);
+
+
+        if ($this->session->role_id == 2) {
+            $condition = array(
+                's.semester' => $sem,
+                'fm.faculty_id' => $faculty_info['faculty_id'],
+                's.department' => $faculty_info['department']
+            );
+
+            $this->db->from('tbl_faculty_sub_mapping fm');
+            $this->db->join("tbl_subject s", "fm.subject_id = s.subject_id", "LEFT");
+            $this->db->where($condition);
+
+            $query = $this->db->get();
+            return $query->result_array();
+        }
+
+        if ($this->session->role_id == 1) {
+            $this->db->where('semester', $sem);
+            $this->db->where('department', $dept_id);
+            $query = $this->db->get('tbl_subject');
+            return $query->result_array();
+        }
     }
 
 }
